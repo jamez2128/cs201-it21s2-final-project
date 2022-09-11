@@ -14,14 +14,33 @@ import javax.swing.JPanel;
 public class GUI {
 	JFrame frame;
 	JPanel mainMenuPanel;
+	Login login;
 	
 	JPanel mainMenuPanel() {
 		JPanel mainMenuPanel = new JPanel();
-
+		
+		JPanel servicesSubPanel = new JPanel();
 		JPanel balanceSubPanel = new JPanel();
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
 		JButton cashInButton = new JButton("Cash In");
+
+		JPanel lifestyleServicesSubPanel = new JPanel();
+		JLabel lifestyleServicesLabel = new JLabel("Lifestyle Services");
+		JButton gamesServiceButton = new JButton("Games");
+		JButton moviesServiceButton = new JButton("Movies");
+		JButton sendMoneyServiceButton = new JButton("Send Money/Gift");
+		JButton payBillsServiceButton = new JButton("Pay Bills");
+		
+		JPanel financialServiceSubPanel = new JPanel();
+		JLabel financialServicesLabel = new JLabel("Financial Services");
+		JButton fundTransferServiceButton = new JButton("Fund Transfer");
+		JButton insuranceServiceButton = new JButton("Insurance");
+		JButton loanServiceButton = new JButton("Loan");
+		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
+		
+		
 		JButton logOutButton = new JButton("Log out");
+
 		logOutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -31,18 +50,33 @@ public class GUI {
 				frame.repaint();
 			}
 		});
-		
 		balanceSubPanel.add(balanceLabel);
 		balanceSubPanel.add(cashInButton);
 		
+		lifestyleServicesSubPanel.add(lifestyleServicesLabel);
+		lifestyleServicesSubPanel.add(gamesServiceButton);
+		lifestyleServicesSubPanel.add(moviesServiceButton);
+		lifestyleServicesSubPanel.add(sendMoneyServiceButton);
+		lifestyleServicesSubPanel.add(payBillsServiceButton);
+		
+		financialServiceSubPanel.add(financialServicesLabel);
+		financialServiceSubPanel.add(fundTransferServiceButton);
+		financialServiceSubPanel.add(insuranceServiceButton);
+		financialServiceSubPanel.add(loanServiceButton);
+		financialServiceSubPanel.add(purchaseServiceButton);
+		
+		servicesSubPanel.add(lifestyleServicesSubPanel);
+		servicesSubPanel.add(financialServiceSubPanel);
+		
 		mainMenuPanel.add(balanceSubPanel);
+		mainMenuPanel.add(servicesSubPanel);
 		mainMenuPanel.add(logOutButton);
 		
 		return mainMenuPanel;
 	}
 	
 	JPanel newLogin() {
-		Login login = new Login();
+		login = new Login();
 		JPanel loginPanel = login.loginPanel(new Consumer<Integer>() {
 			@Override
 			public void accept(Integer t) {
