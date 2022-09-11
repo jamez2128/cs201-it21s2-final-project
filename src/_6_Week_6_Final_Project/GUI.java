@@ -17,6 +17,8 @@ public class GUI {
 	
 	JPanel mainMenuPanel() {
 		JPanel mainMenuPanel = new JPanel();
+
+		JPanel balanceSubPanel = new JPanel();
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
 		JButton cashInButton = new JButton("Cash In");
 		JButton logOutButton = new JButton("Log out");
@@ -29,8 +31,11 @@ public class GUI {
 				frame.repaint();
 			}
 		});
-		mainMenuPanel.add(balanceLabel);
-		mainMenuPanel.add(cashInButton);
+		
+		balanceSubPanel.add(balanceLabel);
+		balanceSubPanel.add(cashInButton);
+		
+		mainMenuPanel.add(balanceSubPanel);
 		mainMenuPanel.add(logOutButton);
 		
 		return mainMenuPanel;
