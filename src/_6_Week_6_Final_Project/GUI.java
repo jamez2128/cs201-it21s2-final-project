@@ -20,7 +20,6 @@ public class GUI {
 		JPanel mainMenuPanel = new JPanel();
 		
 		JPanel servicesSubPanel = new JPanel();
-		servicesSubPanel.setPreferredSize(new Dimension(360, 500));
 		JPanel balanceSubPanel = new JPanel();
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
 		JButton cashInButton = new JButton("Cash In");
