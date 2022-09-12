@@ -82,7 +82,7 @@ public class GUI {
 				if (login.phoneNumber.equals("09454748745") && login.pinCode.equals("6969")) {
 					login.loginStatusLabel.setText("");
 					frame.getContentPane().removeAll();
-					JPanel mainMenuPanel = mainMenuPanel();
+					mainMenuPanel = mainMenuPanel();
 					frame.add(mainMenuPanel);
 					frame.revalidate();
 					frame.repaint();
