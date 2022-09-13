@@ -26,14 +26,6 @@ public class GUI {
 	JPanel mainMenuPanel() {
 		JPanel mainMenuPanel = new JPanel();
 		
-		JPanel balanceSubPanel = new JPanel();
-		balanceSubPanel.setLayout(new BorderLayout());
-		balanceSubPanel.setPreferredSize(new Dimension(400, 40));
-		balanceSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		JLabel balanceLabel = new JLabel("Balance: P0.00");
-		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
-		JButton cashInButton = new JButton("Cash In");
-		
 		JPanel accountSubPanel = new JPanel();
 		accountSubPanel.setLayout(new BorderLayout());
 		accountSubPanel.setPreferredSize(new Dimension(400, 100));
@@ -41,7 +33,15 @@ public class GUI {
 		logoAccount.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 		logoAccount.setPreferredSize(new Dimension(100, 100));
 		JLabel welcomeLabel = new JLabel("Welcome, Placeholder name");
-		welcomeLabel.setFont(new Font(balanceLabel.getFont().getName(), 15, 15));
+		welcomeLabel.setFont(new Font(welcomeLabel.getFont().getName(), 15, 15));
+
+		JPanel balanceSubPanel = new JPanel();
+		balanceSubPanel.setLayout(new BorderLayout());
+		balanceSubPanel.setPreferredSize(new Dimension(400, 40));
+		balanceSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		JLabel balanceLabel = new JLabel("Balance: P0.00");
+		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
+		JButton cashInButton = new JButton("Cash In");
 
 		JPanel lifestyleServicesSubPanel = new JPanel();
 		lifestyleServicesSubPanel.setPreferredSize(new Dimension(200, 200));
