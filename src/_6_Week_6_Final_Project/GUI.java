@@ -3,10 +3,13 @@ package _6_Week_6_Final_Project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,8 +28,10 @@ public class GUI {
 		
 		JPanel balanceSubPanel = new JPanel();
 		balanceSubPanel.setLayout(new BorderLayout());
-		balanceSubPanel.setPreferredSize(new Dimension(400, 25));
+		balanceSubPanel.setPreferredSize(new Dimension(400, 40));
+		balanceSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
+		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
 		JButton cashInButton = new JButton("Cash In");
 		
 		JPanel accountSubPanel = new JPanel();
@@ -35,6 +40,8 @@ public class GUI {
 		JLabel logoAccount = new JLabel();
 		logoAccount.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 		logoAccount.setPreferredSize(new Dimension(100, 100));
+		JLabel welcomeLabel = new JLabel("Welcome, Placeholder name");
+		welcomeLabel.setFont(new Font(balanceLabel.getFont().getName(), 15, 15));
 
 		JPanel lifestyleServicesSubPanel = new JPanel();
 		lifestyleServicesSubPanel.setPreferredSize(new Dimension(200, 200));
@@ -67,7 +74,7 @@ public class GUI {
 				frame.repaint();
 			}
 		});
-		accountSubPanel.add(new JLabel("Welcome, Placeholder name"), BorderLayout.WEST);
+		accountSubPanel.add(welcomeLabel, BorderLayout.WEST);
 		accountSubPanel.add(logoAccount, BorderLayout.EAST);
 
 		balanceSubPanel.add(balanceLabel, BorderLayout.WEST);
