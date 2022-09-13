@@ -1,7 +1,9 @@
 package _6_Week_6_Final_Project;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -19,12 +21,15 @@ public class GUI {
 	JPanel mainMenuPanel() {
 		JPanel mainMenuPanel = new JPanel();
 		
-		JPanel servicesSubPanel = new JPanel();
 		JPanel balanceSubPanel = new JPanel();
+		balanceSubPanel.setPreferredSize(new Dimension(400, 25));
+		balanceSubPanel.setLayout(new BorderLayout());
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
 		JButton cashInButton = new JButton("Cash In");
 
 		JPanel lifestyleServicesSubPanel = new JPanel();
+		lifestyleServicesSubPanel.setPreferredSize(new Dimension(200, 200));
+		lifestyleServicesSubPanel.setLayout(new GridLayout(0, 1));
 		JLabel lifestyleServicesLabel = new JLabel("Lifestyle Services");
 		JButton gamesServiceButton = new JButton("Games");
 		JButton moviesServiceButton = new JButton("Movies");
@@ -32,6 +37,8 @@ public class GUI {
 		JButton payBillsServiceButton = new JButton("Pay Bills");
 		
 		JPanel financialServiceSubPanel = new JPanel();
+		financialServiceSubPanel.setLayout(new GridLayout(0, 1));
+		financialServiceSubPanel.setPreferredSize(new Dimension(200, 200));
 		JLabel financialServicesLabel = new JLabel("Financial Services");
 		JButton fundTransferServiceButton = new JButton("Fund Transfer");
 		JButton insuranceServiceButton = new JButton("Insurance");
@@ -45,13 +52,14 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
+				frame.setLayout(null);
 				frame.add(newLogin());
 				frame.revalidate();
 				frame.repaint();
 			}
 		});
-		balanceSubPanel.add(balanceLabel);
-		balanceSubPanel.add(cashInButton);
+		balanceSubPanel.add(balanceLabel, BorderLayout.WEST);
+		balanceSubPanel.add(cashInButton, BorderLayout.EAST);
 		
 		lifestyleServicesSubPanel.add(lifestyleServicesLabel);
 		lifestyleServicesSubPanel.add(gamesServiceButton);
@@ -60,16 +68,16 @@ public class GUI {
 		lifestyleServicesSubPanel.add(payBillsServiceButton);
 		
 		financialServiceSubPanel.add(financialServicesLabel);
+		financialServiceSubPanel.add(financialServicesLabel);
 		financialServiceSubPanel.add(fundTransferServiceButton);
 		financialServiceSubPanel.add(insuranceServiceButton);
 		financialServiceSubPanel.add(loanServiceButton);
 		financialServiceSubPanel.add(purchaseServiceButton);
 		
-		servicesSubPanel.add(lifestyleServicesSubPanel);
-		servicesSubPanel.add(financialServiceSubPanel);
 		
 		mainMenuPanel.add(balanceSubPanel);
-		mainMenuPanel.add(servicesSubPanel);
+		mainMenuPanel.add(lifestyleServicesSubPanel);
+		mainMenuPanel.add(financialServiceSubPanel);
 		mainMenuPanel.add(logOutButton);
 		
 		return mainMenuPanel;
@@ -77,6 +85,7 @@ public class GUI {
 	
 	JPanel newLogin() {
 		JPanel loginPanel = new JPanel();
+		loginPanel.setBounds(75, 240, 300, 130);
 		loginPanel.setLayout(null);
 		
 		JLabel phoneNumberLabel = new JLabel("Phone Number:");
@@ -103,6 +112,7 @@ public class GUI {
 				String pinCode = pinCodeField.getText();
 				if (phoneNumber.equals("09454748745") && pinCode.equals("6969")) {
 					loginStatusLabel.setText("");
+					frame.setLayout(new BorderLayout());
 					frame.getContentPane().removeAll();
 					mainMenuPanel = mainMenuPanel();
 					frame.add(mainMenuPanel);
@@ -117,8 +127,8 @@ public class GUI {
 			}
 		});
 
-		loginPanel.add(phoneNumberField);
 		loginPanel.add(phoneNumberLabel);
+		loginPanel.add(phoneNumberField);
 		loginPanel.add(pinCodeLabel);
 		loginPanel.add(pinCodeField);
 		loginPanel.add(loginStatusLabel);
@@ -133,10 +143,11 @@ public class GUI {
 		frame.setTitle("DigiCash");
 		frame.setSize(480,720);
 		frame.setVisible(true);
-//		frame.setResizable(false);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon logo = new ImageIcon("assets/images/logo.png");
 		frame.setIconImage(logo.getImage());
+		frame.setLayout(null);
 		
 		frame.add(newLogin());
 		frame.revalidate();
