@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -15,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class GUI {
+	ImageIcon logo;
 	JFrame frame;
 	JPanel mainMenuPanel;
 	
@@ -22,10 +24,17 @@ public class GUI {
 		JPanel mainMenuPanel = new JPanel();
 		
 		JPanel balanceSubPanel = new JPanel();
-		balanceSubPanel.setPreferredSize(new Dimension(400, 25));
 		balanceSubPanel.setLayout(new BorderLayout());
+		balanceSubPanel.setPreferredSize(new Dimension(400, 25));
 		JLabel balanceLabel = new JLabel("Balance: P0.00");
 		JButton cashInButton = new JButton("Cash In");
+		
+		JPanel accountSubPanel = new JPanel();
+		accountSubPanel.setLayout(new BorderLayout());
+		accountSubPanel.setPreferredSize(new Dimension(400, 100));
+		JLabel logoAccount = new JLabel();
+		logoAccount.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+		logoAccount.setPreferredSize(new Dimension(100, 100));
 
 		JPanel lifestyleServicesSubPanel = new JPanel();
 		lifestyleServicesSubPanel.setPreferredSize(new Dimension(200, 200));
@@ -58,6 +67,9 @@ public class GUI {
 				frame.repaint();
 			}
 		});
+		accountSubPanel.add(new JLabel("Welcome, Placeholder name"), BorderLayout.WEST);
+		accountSubPanel.add(logoAccount, BorderLayout.EAST);
+
 		balanceSubPanel.add(balanceLabel, BorderLayout.WEST);
 		balanceSubPanel.add(cashInButton, BorderLayout.EAST);
 		
@@ -75,6 +87,7 @@ public class GUI {
 		financialServiceSubPanel.add(purchaseServiceButton);
 		
 		
+		mainMenuPanel.add(accountSubPanel);
 		mainMenuPanel.add(balanceSubPanel);
 		mainMenuPanel.add(lifestyleServicesSubPanel);
 		mainMenuPanel.add(financialServiceSubPanel);
@@ -85,26 +98,30 @@ public class GUI {
 	
 	JPanel newLogin() {
 		JPanel loginPanel = new JPanel();
-		loginPanel.setBounds(75, 240, 300, 130);
+		loginPanel.setBounds(85, 180, 300, 250);
 		loginPanel.setLayout(null);
 		
+		JLabel loginLogo = new JLabel();
+		loginLogo.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+		loginLogo.setBounds(110, 10, 100, 100);
+
 		JLabel phoneNumberLabel = new JLabel("Phone Number:");
-		phoneNumberLabel.setBounds(10, 20, 100, 25);
+		phoneNumberLabel.setBounds(10, 120, 100, 25);
 		
 		JTextField phoneNumberField = new JTextField(20);
-		phoneNumberField.setBounds(125, 20, 165, 25);
+		phoneNumberField.setBounds(125, 120, 165, 25);
 		
 		JLabel pinCodeLabel = new JLabel("PIN Code:");
-		pinCodeLabel.setBounds(10, 50, 80, 25);
+		pinCodeLabel.setBounds(10, 150, 80, 25);
 		
 		JPasswordField pinCodeField = new JPasswordField(20);
-		pinCodeField.setBounds(125, 50, 165, 25);
+		pinCodeField.setBounds(125, 150, 165, 25);
 
 		JLabel loginStatusLabel = new JLabel("");
-		loginStatusLabel.setBounds(10, 110, 300, 25);
+		loginStatusLabel.setBounds(75, 210, 300, 25);
 
 		JButton loginButton = new JButton("Log in");
-		loginButton.setBounds(10, 80, 80, 25);
+		loginButton.setBounds(10, 180, 80, 25);
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -127,6 +144,7 @@ public class GUI {
 			}
 		});
 
+		loginPanel.add(loginLogo);
 		loginPanel.add(phoneNumberLabel);
 		loginPanel.add(phoneNumberField);
 		loginPanel.add(pinCodeLabel);
@@ -138,14 +156,13 @@ public class GUI {
 	}
 	
 	public GUI() {
-			
 		frame = new JFrame();
 		frame.setTitle("DigiCash");
 		frame.setSize(480,720);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ImageIcon logo = new ImageIcon("assets/images/logo.png");
+		logo = new ImageIcon("assets/images/logo.png");		
 		frame.setIconImage(logo.getImage());
 		frame.setLayout(null);
 		
