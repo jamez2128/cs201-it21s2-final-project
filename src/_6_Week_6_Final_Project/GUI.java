@@ -56,6 +56,17 @@ public class GUI {
 		JButton fundTransferServiceButton = new JButton("Fund Transfer");
 		JButton insuranceServiceButton = new JButton("Insurance");
 		JButton loanServiceButton = new JButton("Loan");
+		loanServiceButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Loan.Loans();
+				
+			}
+		});
+		{
+			
+		}
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");

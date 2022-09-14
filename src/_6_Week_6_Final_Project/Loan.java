@@ -1,12 +1,15 @@
 package _6_Week_6_Final_Project;
 
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 public class Loan {
-	
-	int num[] = new int[10000];
-	
-	ArrayList<Integer> value = new ArrayList<Integer>(num[]);
-	
-	
-	
+
+	public static void Loans() {
+		
+		int num;
+		
+		num = Integer.parseInt(JOptionPane.showInputDialog(null, "How much Loan do you want?", "Loan", JOptionPane.PLAIN_MESSAGE));
+		
+		JOptionPane.showMessageDialog(null, "Your Loan that you borrow: " + num, "Loan", JOptionPane.PLAIN_MESSAGE);
+	}
+
 }
