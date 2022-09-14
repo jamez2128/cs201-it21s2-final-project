@@ -24,7 +24,7 @@ public class GUI {
 	JPanel mainMenuPanel;
 	
 	JPanel mainMenuPanel() {
-		JPanel mainMenuPanel = new JPanel();
+		JPanel mainMenu = new JPanel();
 		
 		JPanel accountSubPanel = new JPanel();
 		accountSubPanel.setLayout(new BorderLayout());
@@ -61,19 +61,19 @@ public class GUI {
 		JButton loanServiceButton = new JButton("Loan");
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
 		
-		
 		JButton logOutButton = new JButton("Log out");
-
 		logOutButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
+				mainMenuPanel = null;
 				frame.setLayout(null);
 				frame.add(newLogin());
 				frame.revalidate();
 				frame.repaint();
 			}
 		});
+
 		accountSubPanel.add(welcomeLabel, BorderLayout.WEST);
 		accountSubPanel.add(logoAccount, BorderLayout.EAST);
 
@@ -94,13 +94,13 @@ public class GUI {
 		financialServiceSubPanel.add(purchaseServiceButton);
 		
 		
-		mainMenuPanel.add(accountSubPanel);
-		mainMenuPanel.add(balanceSubPanel);
-		mainMenuPanel.add(lifestyleServicesSubPanel);
-		mainMenuPanel.add(financialServiceSubPanel);
-		mainMenuPanel.add(logOutButton);
+		mainMenu.add(accountSubPanel);
+		mainMenu.add(balanceSubPanel);
+		mainMenu.add(lifestyleServicesSubPanel);
+		mainMenu.add(financialServiceSubPanel);
+		mainMenu.add(logOutButton);
 		
-		return mainMenuPanel;
+		return mainMenu;
 	}
 	
 	JPanel newLogin() {
