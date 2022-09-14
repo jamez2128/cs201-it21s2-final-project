@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class GUI {
@@ -26,14 +26,11 @@ public class GUI {
 	JPanel mainMenuPanel() {
 		JPanel mainMenu = new JPanel();
 		
-		JPanel accountSubPanel = new JPanel();
-		accountSubPanel.setLayout(new BorderLayout());
-		accountSubPanel.setPreferredSize(new Dimension(400, 100));
+		JPanel logoPanel = new JPanel();
+		logoPanel.setPreferredSize(new Dimension(400, 100));
 		JLabel logoAccount = new JLabel();
 		logoAccount.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 		logoAccount.setPreferredSize(new Dimension(100, 100));
-		JLabel welcomeLabel = new JLabel("Welcome, Placeholder name");
-		welcomeLabel.setFont(new Font(welcomeLabel.getFont().getName(), 15, 15));
 
 		JPanel balanceSubPanel = new JPanel();
 		balanceSubPanel.setLayout(new BorderLayout());
@@ -60,6 +57,11 @@ public class GUI {
 		JButton insuranceServiceButton = new JButton("Insurance");
 		JButton loanServiceButton = new JButton("Loan");
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
+
+		JLabel transactionHistoryLabel = new JLabel("Transaction History");
+		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
+		JScrollPane transactionHistoryPane = new JScrollPane();
+		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
 		
 		JButton logOutButton = new JButton("Log out");
 		logOutButton.addActionListener(new ActionListener() {
@@ -73,9 +75,9 @@ public class GUI {
 				frame.repaint();
 			}
 		});
-
-		accountSubPanel.add(welcomeLabel, BorderLayout.WEST);
-		accountSubPanel.add(logoAccount, BorderLayout.EAST);
+		
+		
+		logoPanel.add(logoAccount);
 
 		balanceSubPanel.add(balanceLabel, BorderLayout.WEST);
 		balanceSubPanel.add(cashInButton, BorderLayout.EAST);
@@ -94,10 +96,12 @@ public class GUI {
 		financialServiceSubPanel.add(purchaseServiceButton);
 		
 		
-		mainMenu.add(accountSubPanel);
+		mainMenu.add(logoPanel);
 		mainMenu.add(balanceSubPanel);
 		mainMenu.add(lifestyleServicesSubPanel);
 		mainMenu.add(financialServiceSubPanel);
+		mainMenu.add(transactionHistoryLabel);
+		mainMenu.add(transactionHistoryPane);
 		mainMenu.add(logOutButton);
 		
 		return mainMenu;
@@ -127,8 +131,11 @@ public class GUI {
 		JLabel loginStatusLabel = new JLabel("");
 		loginStatusLabel.setBounds(75, 210, 300, 25);
 
+		JButton registerButton = new JButton("Register");
+		registerButton.setBounds(50, 180, 85, 25);
+
 		JButton loginButton = new JButton("Log in");
-		loginButton.setBounds(10, 180, 80, 25);
+		loginButton.setBounds(150, 180, 80, 25);
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -157,6 +164,7 @@ public class GUI {
 		loginPanel.add(pinCodeLabel);
 		loginPanel.add(pinCodeField);
 		loginPanel.add(loginStatusLabel);
+		loginPanel.add(registerButton);
 		loginPanel.add(loginButton);
 		loginPanel.updateUI();
 		return loginPanel;
