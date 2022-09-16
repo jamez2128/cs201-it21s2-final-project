@@ -22,6 +22,7 @@ public class GUI {
 	ImageIcon logo;
 	JFrame frame;
 	JPanel mainMenuPanel;
+	Account loggedIn;
 	
 	JPanel mainMenuPanel() {
 		JPanel mainMenu = new JPanel();
@@ -36,7 +37,7 @@ public class GUI {
 		balanceSubPanel.setLayout(new BorderLayout());
 		balanceSubPanel.setPreferredSize(new Dimension(400, 40));
 		balanceSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		JLabel balanceLabel = new JLabel("Balance: P0.00");
+		JLabel balanceLabel = new JLabel("Balance: P" + loggedIn.balance);
 		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
 		JButton cashInButton = new JButton("Cash In");
 
@@ -150,9 +151,8 @@ public class GUI {
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String phoneNumber = phoneNumberField.getText();
-				String pinCode = pinCodeField.getText();
-				if (phoneNumber.equals("09454748745") && pinCode.equals("6969")) {
+				loggedIn = new Account(phoneNumberField.getText(), pinCodeField.getText());
+				if (loggedIn.loginSuccess) {
 					loginStatusLabel.setText("");
 					frame.setLayout(new BorderLayout());
 					frame.getContentPane().removeAll();
