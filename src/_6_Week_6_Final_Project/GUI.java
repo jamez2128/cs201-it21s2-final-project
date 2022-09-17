@@ -22,7 +22,7 @@ public class GUI {
 	ImageIcon logo;
 	JFrame frame;
 	JPanel mainMenuPanel;
-	Account loggedIn;
+	Account loggedIn = null;
 	
 	JPanel mainMenuPanel() {
 		JPanel mainMenu = new JPanel();
@@ -80,6 +80,7 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
+				loggedIn = null;
 				mainMenuPanel = null;
 				frame.setLayout(null);
 				frame.add(newLogin());
