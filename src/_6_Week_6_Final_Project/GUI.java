@@ -153,7 +153,13 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				currentUser = new Account(phoneNumberField.getText(), pinCodeField.getText());
-				if (currentUser.loginSuccess) {
+				if (!currentUser.isConnected) {
+					currentUser = null;
+				}
+				if (currentUser == null) {
+					loginStatusLabel.setText("No connection");
+					loginStatusLabel.setForeground(Color.red);
+				} else if (currentUser.loginSuccess) {
 					loginStatusLabel.setText("");
 					frame.setLayout(new BorderLayout());
 					frame.getContentPane().removeAll();

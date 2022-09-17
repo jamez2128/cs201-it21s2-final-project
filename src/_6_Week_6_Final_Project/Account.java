@@ -16,10 +16,12 @@ public class Account {
 	String emailAddress;
 	Date dateOfBirth;
 	boolean loginSuccess = false;
+	boolean isConnected = false;
 
 	public Account(String phoneNumberInput, String pinCodeInput) {
 		try {
 			Connection localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "mysqluser", "password");
+			isConnected = true;
 			Statement state  = localConn.createStatement();
 			ResultSet result = state.executeQuery("select * from accounts where phoneNumber = \"" + phoneNumberInput + "\";");
 			if (!result.isBeforeFirst()) {
@@ -44,6 +46,7 @@ public class Account {
 				}
 			}
 		} catch (SQLException e) {
+			isConnected = false;
 			e.printStackTrace();
 		}
 	}
