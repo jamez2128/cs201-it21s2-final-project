@@ -125,34 +125,60 @@ public class GUI {
 		 JLabel registrationLogo = new JLabel();
 		 registrationLogo.setIcon(logo);
 		 registrationLogo.setBounds(75, 10, 317, 317);
+
 		 JLabel phoneNumberLabel = new JLabel("Phone Number:");
 		 phoneNumberLabel.setBounds(50, 310, 100, 80);
 		 JTextField phoneNumberField = new JTextField(20);
 		 phoneNumberField.setBounds(230, 338, 165, 25);
+		 JLabel phoneNumberStatus = new JLabel();
+		 phoneNumberStatus.setForeground(Color.RED);
+		 phoneNumberStatus.setBounds(50, 330, 100, 80);
+
 		 JLabel pinCodeLabel = new JLabel("Pin Code:");
-		 pinCodeLabel.setBounds(50, 341, 100, 80);
+		 pinCodeLabel.setBounds(50, 352, 100, 80);
 		 JTextField pinCodeField = new JTextField(20);
-		 pinCodeField.setBounds(230, 370, 165, 25);
+		 pinCodeField.setBounds(230, 380, 165, 25);
+		 JLabel pinCodeStatus = new JLabel();
+		 pinCodeStatus.setForeground(Color.RED);
+		 pinCodeStatus.setBounds(50, 372, 100, 80);
+
 		 JLabel emailAddressLabel = new JLabel("Email Address:");
-		 emailAddressLabel.setBounds(50, 372, 100, 80);
+		 emailAddressLabel.setBounds(50, 393, 100, 80);
 		 JTextField emailAddressField = new JTextField(20);
-		 emailAddressField.setBounds(230, 400, 165, 25);
+		 emailAddressField.setBounds(230, 420, 165, 25);
+		 JLabel emailAddressStatus = new JLabel();
+		 emailAddressStatus.setForeground(Color.RED);
+		 emailAddressStatus.setBounds(50, 413, 100, 80);
+
 		 JLabel firstNameLabel = new JLabel("First name:");
-		 firstNameLabel.setBounds(50, 403, 100, 80);
+		 firstNameLabel.setBounds(50, 434, 100, 80);
 		 JTextField firstNameField = new JTextField(20);
-		 firstNameField.setBounds(230, 430, 165, 25);
+		 firstNameField.setBounds(230, 460, 165, 25);
+		 JLabel firstNameStatus = new JLabel();
+		 firstNameStatus.setForeground(Color.RED);
+		 firstNameStatus.setBounds(50, 454, 100, 80);
+
 		 JLabel lastNameLabel = new JLabel("Last name:");
-		 lastNameLabel.setBounds(50, 434, 100, 80);
+		 lastNameLabel.setBounds(50, 474, 100, 80);
+		 JLabel lastNameStatus = new JLabel();
+		 lastNameStatus.setForeground(Color.RED);
+		 lastNameStatus.setBounds(50, 494, 100, 80);
 		 JTextField lastNameField = new JTextField(20);
-		 lastNameField.setBounds(230, 460, 165, 25);
+		 lastNameField.setBounds(230, 500, 165, 25);
+
 		 JLabel dateOfBirthLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
-		 dateOfBirthLabel.setBounds(50, 464, 170, 80);
+		 dateOfBirthLabel.setBounds(50, 514, 170, 80);
 		 JTextField dateOfBirthField = new JTextField(20);
-		 dateOfBirthField.setBounds(230, 490, 165, 25);
+		 dateOfBirthField.setBounds(230, 540, 165, 25);
+		 JLabel dateOfBirthStatus = new JLabel();
+		 dateOfBirthStatus.setForeground(Color.RED);
+		 dateOfBirthStatus.setBounds(50, 534, 100, 80);
+
 		 JButton registerButton = new JButton("Register");
 		 registerButton.setBounds(225, 600, 100, 25);
+
 		 JButton backButton = new JButton("Back");
-		 backButton.setBounds(50, 600, 80, 25);
+		 backButton.setBounds(130, 600, 80, 25);
 		 backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -167,16 +193,22 @@ public class GUI {
 		 registration.add(registrationLogo);
 		 registration.add(phoneNumberLabel);
 		 registration.add(phoneNumberField);
+		 registration.add(phoneNumberStatus);
 		 registration.add(pinCodeLabel);
 		 registration.add(pinCodeField);
+		 registration.add(pinCodeStatus);
 		 registration.add(emailAddressLabel);
 		 registration.add(emailAddressField);
+		 registration.add(emailAddressStatus);
 		 registration.add(firstNameLabel);
 		 registration.add(firstNameField);
+		 registration.add(firstNameStatus);
 		 registration.add(lastNameLabel);
 		 registration.add(lastNameField);
+		 registration.add(lastNameStatus);
 		 registration.add(dateOfBirthLabel);
 		 registration.add(dateOfBirthField);
+		 registration.add(dateOfBirthStatus);
 		 registration.add(backButton);
 		 registration.add(registerButton);
 		 registration.updateUI();
