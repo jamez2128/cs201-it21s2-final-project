@@ -66,9 +66,6 @@ public class GUI {
 				
 			}
 		});
-		{
-			
-		}
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
@@ -122,23 +119,40 @@ public class GUI {
 	}
 	 JPanel registrationPanel() {
 		 JPanel registration = new JPanel();
-		 registration.setLayout(new FlowLayout());
-		 registration.setPreferredSize(new Dimension(300, 720));
+		 registration.setBounds(0, 0 , 480, 720);
+		 registration.setLayout(null);
 
+		 JLabel registrationLogo = new JLabel();
+		 registrationLogo.setIcon(logo);
+		 registrationLogo.setBounds(75, 10, 317, 317);
 		 JLabel phoneNumberLabel = new JLabel("Phone Number:");
+		 phoneNumberLabel.setBounds(50, 310, 100, 80);
 		 JTextField phoneNumberField = new JTextField(20);
+		 phoneNumberField.setBounds(230, 338, 165, 25);
 		 JLabel pinCodeLabel = new JLabel("Pin Code:");
+		 pinCodeLabel.setBounds(50, 341, 100, 80);
 		 JTextField pinCodeField = new JTextField(20);
+		 pinCodeField.setBounds(230, 370, 165, 25);
 		 JLabel emailAddressLabel = new JLabel("Email Address:");
+		 emailAddressLabel.setBounds(50, 372, 100, 80);
 		 JTextField emailAddressField = new JTextField(20);
-		 JLabel firstNaneLabel = new JLabel("First name:");
+		 emailAddressField.setBounds(230, 400, 165, 25);
+		 JLabel firstNameLabel = new JLabel("First name:");
+		 firstNameLabel.setBounds(50, 403, 100, 80);
 		 JTextField firstNameField = new JTextField(20);
-		 JLabel lastNaneLabel = new JLabel("Last name:");
+		 firstNameField.setBounds(230, 430, 165, 25);
+		 JLabel lastNameLabel = new JLabel("Last name:");
+		 lastNameLabel.setBounds(50, 434, 100, 80);
 		 JTextField lastNameField = new JTextField(20);
+		 lastNameField.setBounds(230, 460, 165, 25);
 		 JLabel dateOfBirthLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
+		 dateOfBirthLabel.setBounds(50, 464, 170, 80);
 		 JTextField dateOfBirthField = new JTextField(20);
+		 dateOfBirthField.setBounds(230, 490, 165, 25);
 		 JButton registerButton = new JButton("Register");
+		 registerButton.setBounds(225, 600, 100, 25);
 		 JButton backButton = new JButton("Back");
+		 backButton.setBounds(50, 600, 80, 25);
 		 backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -150,21 +164,22 @@ public class GUI {
 			}
 		});
 		 
+		 registration.add(registrationLogo);
 		 registration.add(phoneNumberLabel);
 		 registration.add(phoneNumberField);
 		 registration.add(pinCodeLabel);
 		 registration.add(pinCodeField);
 		 registration.add(emailAddressLabel);
 		 registration.add(emailAddressField);
-		 registration.add(firstNaneLabel);
+		 registration.add(firstNameLabel);
 		 registration.add(firstNameField);
-		 registration.add(lastNaneLabel);
+		 registration.add(lastNameLabel);
 		 registration.add(lastNameField);
 		 registration.add(dateOfBirthLabel);
 		 registration.add(dateOfBirthField);
 		 registration.add(backButton);
 		 registration.add(registerButton);
-		
+		 registration.updateUI();
 		 return registration;
 	 }
 	
@@ -197,7 +212,6 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				frame.setLayout(new FlowLayout());
 				frame.add(registrationPanel());
 				frame.revalidate();
 				frame.repaint();
