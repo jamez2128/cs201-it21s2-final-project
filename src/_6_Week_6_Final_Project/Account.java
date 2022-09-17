@@ -10,6 +10,7 @@ import java.util.Date;
 public class Account {
 	int id;
 	String phoneNumber;
+	String pinCode;
 	double balance;
 	String lastName;
 	String firstName;
@@ -30,7 +31,7 @@ public class Account {
 			}
 			while (result.next()) {
 				phoneNumber = result.getString("phoneNumber");
-				String pinCode = result.getString("pinCode");
+				pinCode = result.getString("pinCode");
 				 if (pinCode.equals(pinCodeInput)) {
 					 id = result.getInt("id");
 					 lastName = result.getString("lastName");
