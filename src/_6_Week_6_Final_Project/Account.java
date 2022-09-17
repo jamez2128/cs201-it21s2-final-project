@@ -2,10 +2,12 @@ package _6_Week_6_Final_Project;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+
 
 public class Account {
 	int id;
@@ -23,8 +25,9 @@ public class Account {
 		try {
 			Connection localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "mysqluser", "password");
 			isConnected = true;
-			Statement state  = localConn.createStatement();
-			ResultSet result = state.executeQuery("select * from accounts where phoneNumber = \"" + phoneNumberInput + "\";");
+			PreparedStatement state  = localConn.prepareStatement("select * from accounts where phoneNumber = ?");
+			state.setString(1, phoneNumberInput);
+			ResultSet result = state.executeQuery();
 			if (!result.isBeforeFirst()) {
 				loginSuccess = false;
 				return;
