@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 public class Account {
 	int id;
@@ -13,7 +14,7 @@ public class Account {
 	String lastName;
 	String firstName;
 	String emailAddress;
-	String dateOfBirth;
+	Date dateOfBirth;
 	boolean loginSuccess = false;
 
 	public Account(String phoneNumberInput, String pinCodeInput) {
@@ -34,6 +35,7 @@ public class Account {
 					 firstName = result.getString("firstName");
 					 emailAddress = result.getString("emailAddress");
 					 balance = result.getDouble("balance");
+					 dateOfBirth = result.getDate("dateOfBirth");
 					 loginSuccess = true;
 					 return;
 				} else {
