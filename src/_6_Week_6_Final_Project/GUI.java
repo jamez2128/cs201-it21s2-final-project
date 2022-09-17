@@ -3,6 +3,7 @@ package _6_Week_6_Final_Project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -119,6 +120,53 @@ public class GUI {
 		
 		return mainMenu;
 	}
+	 JPanel registrationPanel() {
+		 JPanel registration = new JPanel();
+		 registration.setLayout(new FlowLayout());
+		 registration.setPreferredSize(new Dimension(300, 720));
+
+		 JLabel phoneNumberLabel = new JLabel("Phone Number:");
+		 JTextField phoneNumberField = new JTextField(20);
+		 JLabel pinCodeLabel = new JLabel("Pin Code:");
+		 JTextField pinCodeField = new JTextField(20);
+		 JLabel emailAddressLabel = new JLabel("Email Address:");
+		 JTextField emailAddressField = new JTextField(20);
+		 JLabel firstNaneLabel = new JLabel("First name:");
+		 JTextField firstNameField = new JTextField(20);
+		 JLabel lastNaneLabel = new JLabel("Last name:");
+		 JTextField lastNameField = new JTextField(20);
+		 JLabel dateOfBirthLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
+		 JTextField dateOfBirthField = new JTextField(20);
+		 JButton registerButton = new JButton("Register");
+		 JButton backButton = new JButton("Back");
+		 backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				frame.setLayout(null);
+				frame.add(newLogin());
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		 
+		 registration.add(phoneNumberLabel);
+		 registration.add(phoneNumberField);
+		 registration.add(pinCodeLabel);
+		 registration.add(pinCodeField);
+		 registration.add(emailAddressLabel);
+		 registration.add(emailAddressField);
+		 registration.add(firstNaneLabel);
+		 registration.add(firstNameField);
+		 registration.add(lastNaneLabel);
+		 registration.add(lastNameField);
+		 registration.add(dateOfBirthLabel);
+		 registration.add(dateOfBirthField);
+		 registration.add(backButton);
+		 registration.add(registerButton);
+		
+		 return registration;
+	 }
 	
 	JPanel newLogin() {
 		JPanel loginPanel = new JPanel();
@@ -145,6 +193,16 @@ public class GUI {
 		loginStatusLabel.setBounds(75, 210, 300, 25);
 
 		JButton registerButton = new JButton("Register");
+		registerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				frame.setLayout(new FlowLayout());
+				frame.add(registrationPanel());
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
 		registerButton.setBounds(50, 180, 85, 25);
 
 		JButton loginButton = new JButton("Log in");
