@@ -85,6 +85,20 @@ public class Account {
 		}
 	}
 	
+	public static void changeBalance(int id, double amount) {
+		try {
+			PreparedStatement updateBalanceStatement = localConn.prepareStatement("update accounts set balance = ? where id = ?");
+			updateBalanceStatement.setDouble(1, amount);
+			updateBalanceStatement.setInt(2, id);
+			updateBalanceStatement.executeUpdate();
+		} catch (CommunicationsException e) {
+			initializeConnection();
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static boolean isAccountExists(String phoneNumber) {
 		initializeConnection();
 		boolean itExists = false;

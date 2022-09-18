@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -40,6 +41,21 @@ public class GUI {
 		JLabel balanceLabel = new JLabel("Balance: P" + currentUser.balance);
 		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
 		JButton cashInButton = new JButton("Cash In");
+		cashInButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String cashInput = JOptionPane.showInputDialog("How much will you cash in?");
+				if (cashInput.matches("\\D+")) {
+					JOptionPane.showMessageDialog(null, "Invalid input please try again");
+				} else {
+					double newAmount = (currentUser.balance + Double.parseDouble(cashInput));
+					Account.changeBalance(currentUser.id, newAmount);
+					currentUser.balance = newAmount;
+					balanceLabel.setText("Balance: P" + currentUser.balance);
+				}
+				mainMenuPanel.updateUI();
+			}
+		});
 
 		JPanel lifestyleServicesSubPanel = new JPanel();
 		lifestyleServicesSubPanel.setPreferredSize(new Dimension(200, 200));
