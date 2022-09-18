@@ -258,9 +258,9 @@ public class GUI {
 				String phoneNumberInput = phoneNumberField.getText();
 				String pinCodeInput = pinCodeField.getText();
 				
-				if (phoneNumberInput.substring(0, 1).equals("0") && phoneNumberInput.length() == 11) {
+				if (!phoneNumberInput.equals("") && phoneNumberInput.substring(0, 1).equals("0") && phoneNumberInput.length() == 11) {
 					phoneNumberInput = phoneNumberInput.substring(1, 11);
-				} else if (phoneNumberInput.substring(0, 3).equals("+63") && phoneNumberInput.length() == 13) {
+				} else if (!phoneNumberInput.equals("") && phoneNumberInput.substring(0, 3).equals("+63") && phoneNumberInput.length() == 13) {
 					phoneNumberInput = phoneNumberInput.substring(3, 13);
 				}
 					
