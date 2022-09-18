@@ -131,7 +131,7 @@ public class GUI {
 		 phoneNumberField.setBounds(230, 338, 165, 25);
 		 JLabel phoneNumberStatus = new JLabel();
 		 phoneNumberStatus.setForeground(Color.RED);
-		 phoneNumberStatus.setBounds(50, 330, 135, 80);
+		 phoneNumberStatus.setBounds(50, 330, 225, 80);
 
 		 JLabel pinCodeLabel = new JLabel("Pin Code:");
 		 pinCodeLabel.setBounds(50, 352, 100, 80);
@@ -263,7 +263,7 @@ public class GUI {
 						registrationStatus.setForeground(Color.BLACK);
 						registrationStatus.setText("Registered Successfully!");
 					} else {
-						phoneNumberStatus.setText("Phone number is already registed");
+						phoneNumberStatus.setText("Phone number is already registered");
 					}
 				}
 			}
