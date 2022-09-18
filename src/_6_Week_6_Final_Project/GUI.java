@@ -147,7 +147,7 @@ public class GUI {
 		 emailAddressField.setBounds(230, 420, 165, 25);
 		 JLabel emailAddressStatus = new JLabel();
 		 emailAddressStatus.setForeground(Color.RED);
-		 emailAddressStatus.setBounds(50, 413, 100, 80);
+		 emailAddressStatus.setBounds(50, 413, 150, 80);
 
 		 JLabel firstNameLabel = new JLabel("First name:");
 		 firstNameLabel.setBounds(50, 434, 100, 80);
@@ -179,58 +179,89 @@ public class GUI {
 			}
 		});
 
+		 JLabel registrationStatus = new JLabel("");
+		 registrationStatus.setBounds(205, 525, 150, 80);
+
 		 JButton registerButton = new JButton("Register");
 		 registerButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int checks = 0;
 				String phoneNumber = phoneNumberField.getText();
+				String pinCode = pinCodeField.getText();
+				String emailAddress = emailAddressField.getText();
+				String firstName = firstNameField.getText();
+				String lastName = lastNameField.getText();
+
 				if (phoneNumber.equals("")) {
 					phoneNumberStatus.setText("Field is empty");
 				} else if (phoneNumber.substring(0, 2).equals("09") && phoneNumber.length() == 11) {
 					phoneNumberStatus.setText("");
+					phoneNumber = phoneNumber.substring(1, 11);
+					checks += 1;
 				} else if (phoneNumber.substring(0, 4).equals("+639") && phoneNumber.length() == 13) {
 					phoneNumberStatus.setText("");
+					phoneNumber = phoneNumber.substring(3, 13);
+					checks += 1;
 				} else if (phoneNumber.substring(0, 1).equals("9") && phoneNumber.length() == 10) {
 					phoneNumberStatus.setText("");
+					checks += 1;
 				} else {
 					phoneNumberStatus.setText("Invalid phone number");
 				}
 				
-				String pinCode = pinCodeField.getText();
 				if (pinCode.equals("")) {
 					pinCodeStatus.setText("Field is empty");
 				} else if (pinCode.length() == 4) {
 					pinCodeStatus.setText("");
+					checks += 1;
 				} else {
 					pinCodeStatus.setText("Pin Code must be 4 digits");
 				}
 				
-				String emailAddress = emailAddressField.getText();
 				if (emailAddress.equals("")) {
 					emailAddressStatus.setText("Field is empty");
+				} else if (emailAddress.length() >= 255) {
+					firstNameStatus.setText("Exceeded character limit");
 				} else if (emailAddress.contains("@")) {
 					emailAddressStatus.setText("");
+					checks += 1;
 				} else {
 					emailAddressStatus.setText("Invalid email address");
 				}
 				
-				String firstName = firstNameField.getText();
 				if (firstName.equals("")) {
 					firstNameStatus.setText("Field is empty");
+				} else if (firstName.length() >= 255) {
+					firstNameStatus.setText("Exceeded character limit");
 				} else {
 					firstNameStatus.setText("");
+					checks += 1;
 				}
 				
-				String lastName = lastNameField.getText();
-				if (firstName.equals("")) {
+				if (lastName.equals("")) {
 					lastNameStatus.setText("Field is empty");
+				} else if (lastName.length() >= 255) {
+					lastNameStatus.setText("Exceeded character limit");
 				} else {
 					lastNameStatus.setText("");
+					checks += 1;
 				}
 				
+				if (checks == 5) {
+					Account.register(phoneNumber, pinCode, firstName, lastName, emailAddress);
+					phoneNumberField.setText("");
+					pinCodeField.setText("");
+					emailAddressField.setText("");
+					firstNameField.setText("");
+					lastNameField.setText("");
+					registrationStatus.setForeground(Color.BLACK);
+					registrationStatus.setText("Registered Successfully!");
+				}
 			}
 		});
 		 registerButton.setBounds(225, 600, 100, 25);
+		 
 		 
 		 registration.add(registrationLogo);
 		 registration.add(phoneNumberLabel);
@@ -250,6 +281,7 @@ public class GUI {
 		 registration.add(lastNameStatus);
 		 registration.add(backButton);
 		 registration.add(registerButton);
+		 registration.add(registrationStatus);
 		 registration.updateUI();
 		 return registration;
 	 }

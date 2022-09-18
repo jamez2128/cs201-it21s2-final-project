@@ -16,31 +16,33 @@ public class Account {
 	String lastName;
 	String firstName;
 	String emailAddress;
-	Date dateOfBirth;
 	boolean loginSuccess = false;
 	boolean isConnected = false;
+	
+	static Connection localConn;
 
 	public Account(String phoneNumberInput, String pinCodeInput) {
 		try {
-			Connection localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "mysqluser", "password");
+			if (localConn == null) {
+				localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "mysqluser", "password");
+			}
 			isConnected = true;
-			PreparedStatement state  = localConn.prepareStatement("select * from accounts where phoneNumber = ?");
-			state.setString(1, phoneNumberInput);
-			ResultSet result = state.executeQuery();
-			if (!result.isBeforeFirst()) {
+			PreparedStatement loginStatement  = localConn.prepareStatement("select * from accounts where phoneNumber = ?");
+			loginStatement.setString(1, phoneNumberInput);
+			ResultSet loginResults = loginStatement.executeQuery();
+			if (!loginResults.isBeforeFirst()) {
 				loginSuccess = false;
 				return;
 			}
-			while (result.next()) {
-				phoneNumber = result.getString("phoneNumber");
-				pinCode = result.getString("pinCode");
+			while (loginResults.next()) {
+				phoneNumber = loginResults.getString("phoneNumber");
+				pinCode = loginResults.getString("pinCode");
 				 if (pinCode.equals(pinCodeInput)) {
-					 id = result.getInt("id");
-					 lastName = result.getString("lastName");
-					 firstName = result.getString("firstName");
-					 emailAddress = result.getString("emailAddress");
-					 balance = result.getDouble("balance");
-					 dateOfBirth = result.getDate("dateOfBirth");
+					 id = loginResults.getInt("id");
+					 lastName = loginResults.getString("lastName");
+					 firstName = loginResults.getString("firstName");
+					 emailAddress = loginResults.getString("emailAddress");
+					 balance = loginResults.getDouble("balance");
 					 loginSuccess = true;
 					 return;
 				} else {
@@ -50,6 +52,24 @@ public class Account {
 			}
 		} catch (SQLException e) {
 			isConnected = false;
+			e.printStackTrace();
+		}
+	}
+	
+	public static void register(String phoneNumber, String pinCode, String firstName, String lastName, String emailAddress) {
+		try {
+			if (localConn == null) {
+				localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "mysqluser", "password");
+			}
+			PreparedStatement registerStatment = localConn.prepareStatement("insert into accounts (phoneNumber, pinCode, firstName, lastName, emailAddress, balance) values (?, ?, ?, ?, ?, 0);");
+			registerStatment.setString(1, phoneNumber);
+			registerStatment.setString(2, pinCode);
+			registerStatment.setString(3, firstName);
+			registerStatment.setString(4, lastName);
+			registerStatment.setString(5, emailAddress);
+			registerStatment.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
