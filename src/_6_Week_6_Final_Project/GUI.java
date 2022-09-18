@@ -133,13 +133,13 @@ public class GUI {
 		 phoneNumberStatus.setForeground(Color.RED);
 		 phoneNumberStatus.setBounds(50, 330, 225, 80);
 
-		 JLabel pinCodeLabel = new JLabel("Pin Code:");
-		 pinCodeLabel.setBounds(50, 352, 100, 80);
+		 JLabel pinCodeLabel = new JLabel("Pin Code (4 digits):");
+		 pinCodeLabel.setBounds(50, 352, 150, 80);
 		 JPasswordField pinCodeField = new JPasswordField(20);
 		 pinCodeField.setBounds(230, 380, 165, 25);
 		 JLabel pinCodeStatus = new JLabel();
 		 pinCodeStatus.setForeground(Color.RED);
-		 pinCodeStatus.setBounds(50, 372, 160, 80);
+		 pinCodeStatus.setBounds(50, 372, 200, 80);
 
 		 JLabel emailAddressLabel = new JLabel("Email Address:");
 		 emailAddressLabel.setBounds(50, 393, 100, 80);
@@ -216,6 +216,8 @@ public class GUI {
 				
 				if (pinCode.equals("")) {
 					pinCodeStatus.setText("Field is empty");
+				} else if (pinCode.matches("\\D+")) {
+					pinCodeStatus.setText("Must not contain characters");
 				} else if (pinCode.length() == 4) {
 					pinCodeStatus.setText("");
 					checks += 1;
