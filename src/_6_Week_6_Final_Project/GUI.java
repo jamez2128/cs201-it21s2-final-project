@@ -60,7 +60,7 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Loan.Loans();
+				Loan.mFrame();
 				
 			}
 		});
