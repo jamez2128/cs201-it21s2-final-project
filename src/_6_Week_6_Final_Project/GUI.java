@@ -181,6 +181,10 @@ public class GUI {
 
 		 JLabel registrationStatus = new JLabel("");
 		 registrationStatus.setBounds(205, 525, 150, 80);
+		 if (Account.isConnected == false) {
+			 registrationStatus.setForeground(Color.RED);
+			 registrationStatus.setText("No connection");
+		 }
 
 		 JButton registerButton = new JButton("Register");
 		 registerButton.addActionListener(new ActionListener() {
@@ -249,14 +253,18 @@ public class GUI {
 				}
 				
 				if (checks == 5) {
-					Account.register(phoneNumber, pinCode, firstName, lastName, emailAddress);
-					phoneNumberField.setText("");
-					pinCodeField.setText("");
-					emailAddressField.setText("");
-					firstNameField.setText("");
-					lastNameField.setText("");
-					registrationStatus.setForeground(Color.BLACK);
-					registrationStatus.setText("Registered Successfully!");
+					if (Account.isAccountExists(phoneNumber) == false) {
+						Account.register(phoneNumber, pinCode, firstName, lastName, emailAddress);
+						phoneNumberField.setText("");
+						pinCodeField.setText("");
+						emailAddressField.setText("");
+						firstNameField.setText("");
+						lastNameField.setText("");
+						registrationStatus.setForeground(Color.BLACK);
+						registrationStatus.setText("Registered Successfully!");
+					} else {
+						phoneNumberStatus.setText("Phone number is already registed");
+					}
 				}
 			}
 		});
@@ -309,6 +317,10 @@ public class GUI {
 
 		JLabel loginStatusLabel = new JLabel("");
 		loginStatusLabel.setBounds(75, 210, 300, 25);
+		if (Account.isConnected == false) {
+			loginStatusLabel.setForeground(Color.RED);
+			loginStatusLabel.setText("No Connection");
+		}
 
 		JButton registerButton = new JButton("Register");
 		registerButton.addActionListener(new ActionListener() {
@@ -337,13 +349,10 @@ public class GUI {
 				}
 					
 				currentUser = new Account(phoneNumberInput, pinCodeInput);
-				if (!currentUser.isConnected) {
+				if (Account.isConnected == false) {
 					currentUser = null;
 				}
-				if (currentUser == null) {
-					loginStatusLabel.setText("No connection");
-					loginStatusLabel.setForeground(Color.red);
-				} else if (currentUser.loginSuccess) {
+				if (currentUser.loginSuccess) {
 					loginStatusLabel.setText("");
 					frame.setLayout(new BorderLayout());
 					frame.getContentPane().removeAll();
