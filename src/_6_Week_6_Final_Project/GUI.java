@@ -131,7 +131,7 @@ public class GUI {
 		 phoneNumberField.setBounds(230, 338, 165, 25);
 		 JLabel phoneNumberStatus = new JLabel();
 		 phoneNumberStatus.setForeground(Color.RED);
-		 phoneNumberStatus.setBounds(50, 330, 100, 80);
+		 phoneNumberStatus.setBounds(50, 330, 135, 80);
 
 		 JLabel pinCodeLabel = new JLabel("Pin Code:");
 		 pinCodeLabel.setBounds(50, 352, 100, 80);
@@ -165,13 +165,6 @@ public class GUI {
 		 JTextField lastNameField = new JTextField(20);
 		 lastNameField.setBounds(230, 500, 165, 25);
 
-		 JLabel dateOfBirthLabel = new JLabel("Date of Birth (YYYY-MM-DD):");
-		 dateOfBirthLabel.setBounds(50, 514, 170, 80);
-		 JTextField dateOfBirthField = new JTextField(20);
-		 dateOfBirthField.setBounds(230, 540, 165, 25);
-		 JLabel dateOfBirthStatus = new JLabel();
-		 dateOfBirthStatus.setForeground(Color.RED);
-		 dateOfBirthStatus.setBounds(50, 534, 100, 80);
 
 		 JButton backButton = new JButton("Back");
 		 backButton.setBounds(130, 600, 80, 25);
@@ -191,6 +184,17 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String phoneNumber = phoneNumberField.getText();
+				if (phoneNumber.equals("")) {
+					phoneNumberStatus.setText("Field is empty");
+				} else if (phoneNumber.substring(0, 2).equals("09") && phoneNumber.length() == 11) {
+					phoneNumberStatus.setText("");
+				} else if (phoneNumber.substring(0, 4).equals("+639") && phoneNumber.length() == 13) {
+					phoneNumberStatus.setText("");
+				} else if (phoneNumber.substring(0, 1).equals("9") && phoneNumber.length() == 10) {
+					phoneNumberStatus.setText("");
+				} else {
+					phoneNumberStatus.setText("Invalid phone number");
+				}
 			}
 		});
 		 registerButton.setBounds(225, 600, 100, 25);
@@ -211,9 +215,6 @@ public class GUI {
 		 registration.add(lastNameLabel);
 		 registration.add(lastNameField);
 		 registration.add(lastNameStatus);
-		 registration.add(dateOfBirthLabel);
-		 registration.add(dateOfBirthField);
-		 registration.add(dateOfBirthStatus);
 		 registration.add(backButton);
 		 registration.add(registerButton);
 		 registration.updateUI();
