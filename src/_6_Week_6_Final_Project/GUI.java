@@ -33,6 +33,8 @@ public class GUI {
 		JLabel logoAccount = new JLabel();
 		logoAccount.setIcon(new ImageIcon(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 		logoAccount.setPreferredSize(new Dimension(100, 100));
+		JLabel welcomeLabel = new JLabel("Welcome " + currentUser.firstName + "!");
+		welcomeLabel.setFont(new Font(welcomeLabel.getFont().getName(), 20, 20));
 
 		JPanel balanceSubPanel = new JPanel();
 		balanceSubPanel.setLayout(new BorderLayout());
@@ -104,6 +106,7 @@ public class GUI {
 		
 		
 		logoPanel.add(logoAccount);
+		logoPanel.add(welcomeLabel);
 
 		balanceSubPanel.add(balanceLabel, BorderLayout.WEST);
 		balanceSubPanel.add(cashInButton, BorderLayout.EAST);
