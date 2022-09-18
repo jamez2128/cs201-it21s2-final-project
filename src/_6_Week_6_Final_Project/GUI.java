@@ -139,7 +139,7 @@ public class GUI {
 		 pinCodeField.setBounds(230, 380, 165, 25);
 		 JLabel pinCodeStatus = new JLabel();
 		 pinCodeStatus.setForeground(Color.RED);
-		 pinCodeStatus.setBounds(50, 372, 100, 80);
+		 pinCodeStatus.setBounds(50, 372, 160, 80);
 
 		 JLabel emailAddressLabel = new JLabel("Email Address:");
 		 emailAddressLabel.setBounds(50, 393, 100, 80);
@@ -195,6 +195,39 @@ public class GUI {
 				} else {
 					phoneNumberStatus.setText("Invalid phone number");
 				}
+				
+				String pinCode = pinCodeField.getText();
+				if (pinCode.equals("")) {
+					pinCodeStatus.setText("Field is empty");
+				} else if (pinCode.length() == 4) {
+					pinCodeStatus.setText("");
+				} else {
+					pinCodeStatus.setText("Pin Code must be 4 digits");
+				}
+				
+				String emailAddress = emailAddressField.getText();
+				if (emailAddress.equals("")) {
+					emailAddressStatus.setText("Field is empty");
+				} else if (emailAddress.contains("@")) {
+					emailAddressStatus.setText("");
+				} else {
+					emailAddressStatus.setText("Invalid email address");
+				}
+				
+				String firstName = firstNameField.getText();
+				if (firstName.equals("")) {
+					firstNameStatus.setText("Field is empty");
+				} else {
+					firstNameStatus.setText("");
+				}
+				
+				String lastName = lastNameField.getText();
+				if (firstName.equals("")) {
+					lastNameStatus.setText("Field is empty");
+				} else {
+					lastNameStatus.setText("");
+				}
+				
 			}
 		});
 		 registerButton.setBounds(225, 600, 100, 25);
