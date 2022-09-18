@@ -199,6 +199,8 @@ public class GUI {
 
 				if (phoneNumber.equals("")) {
 					phoneNumberStatus.setText("Field is empty");
+				} else if (phoneNumber.matches("\\D+")) {
+					phoneNumberStatus.setText("Invalid phone number");
 				} else if (phoneNumber.substring(0, 2).equals("09") && phoneNumber.length() == 11) {
 					phoneNumberStatus.setText("");
 					phoneNumber = phoneNumber.substring(1, 11);
