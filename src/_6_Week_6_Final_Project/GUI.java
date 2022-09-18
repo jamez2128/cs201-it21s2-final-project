@@ -135,7 +135,7 @@ public class GUI {
 
 		 JLabel pinCodeLabel = new JLabel("Pin Code:");
 		 pinCodeLabel.setBounds(50, 352, 100, 80);
-		 JTextField pinCodeField = new JTextField(20);
+		 JPasswordField pinCodeField = new JPasswordField(20);
 		 pinCodeField.setBounds(230, 380, 165, 25);
 		 JLabel pinCodeStatus = new JLabel();
 		 pinCodeStatus.setForeground(Color.RED);
@@ -173,9 +173,6 @@ public class GUI {
 		 dateOfBirthStatus.setForeground(Color.RED);
 		 dateOfBirthStatus.setBounds(50, 534, 100, 80);
 
-		 JButton registerButton = new JButton("Register");
-		 registerButton.setBounds(225, 600, 100, 25);
-
 		 JButton backButton = new JButton("Back");
 		 backButton.setBounds(130, 600, 80, 25);
 		 backButton.addActionListener(new ActionListener() {
@@ -188,6 +185,15 @@ public class GUI {
 				frame.repaint();
 			}
 		});
+
+		 JButton registerButton = new JButton("Register");
+		 registerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String phoneNumber = phoneNumberField.getText();
+			}
+		});
+		 registerButton.setBounds(225, 600, 100, 25);
 		 
 		 registration.add(registrationLogo);
 		 registration.add(phoneNumberLabel);
