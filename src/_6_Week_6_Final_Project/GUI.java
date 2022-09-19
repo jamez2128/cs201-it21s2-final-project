@@ -47,8 +47,11 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String cashInput = JOptionPane.showInputDialog("How much will you cash in?");
-				if (cashInput.matches("\\D+")) {
-					JOptionPane.showMessageDialog(null, "Invalid input please try again");
+				if (cashInput == null || cashInput.isEmpty()) {
+					return;
+				} else if (cashInput.matches("\\D+")) {
+					JOptionPane.showMessageDialog(null, "Invalid input, Operation cancelled");
+					return;
 				} else {
 					double newAmount = (currentUser.balance + Double.parseDouble(cashInput));
 					Account.changeBalance(currentUser.id, newAmount);
