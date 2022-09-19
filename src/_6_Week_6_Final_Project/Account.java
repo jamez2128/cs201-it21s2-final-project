@@ -6,6 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+class TransactionHistory {
+	String description;
+	Date date;
+	double amount;
+
+	public TransactionHistory(String description, Date date, double amount) {
+		this.description = description;
+		this.date = date;
+		this.amount = amount;
+	}
+	
+}
+
 public class Account {
 	int id;
 	String phoneNumber;
@@ -14,10 +30,34 @@ public class Account {
 	String lastName;
 	String firstName;
 	String emailAddress;
+	ArrayList<TransactionHistory> transactionHistoryList;
 	boolean loginSuccess = false;
 	static boolean isConnected = false;
 	
 	static Connection localConn;
+	
+	public void initializeTransactionList() {
+		transactionHistoryList = new ArrayList<>();
+		initializeConnection();
+		try {
+			PreparedStatement getTransactionStatement = localConn.prepareStatement("select * from transactionHistory where accountId = ?;");
+			getTransactionStatement.setInt(1, id);
+			ResultSet transactionHistoryResults = getTransactionStatement.executeQuery();
+			while (transactionHistoryResults.next()) {
+				String description = transactionHistoryResults.getString("description");
+				Date date = transactionHistoryResults.getDate("date");
+				double amount = transactionHistoryResults.getDouble("amount");
+				
+				transactionHistoryList.add(new TransactionHistory(description, date, amount));
+			}
+		} catch (CommunicationsException e) {
+			initializeConnection();
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static void initializeConnection() {
 		if (localConn == null) {
@@ -51,6 +91,7 @@ public class Account {
 					 firstName = loginResults.getString("firstName");
 					 emailAddress = loginResults.getString("emailAddress");
 					 balance = loginResults.getDouble("balance");
+					 initializeTransactionList();
 					 loginSuccess = true;
 					 return;
 				} else {
