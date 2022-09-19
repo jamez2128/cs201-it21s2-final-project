@@ -87,6 +87,7 @@ public class GUI {
 			}
 		});
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
+		JButton creditDebitServiceButton = new JButton("Credit and Debit");
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
 		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
@@ -137,6 +138,7 @@ public class GUI {
 		financialServiceSubPanel.add(insuranceServiceButton);
 		financialServiceSubPanel.add(loanServiceButton);
 		financialServiceSubPanel.add(purchaseServiceButton);
+		financialServiceSubPanel.add(creditDebitServiceButton);
 		
 		
 		mainMenu.add(logoPanel);
