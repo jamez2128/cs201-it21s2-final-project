@@ -25,6 +25,14 @@ public class GUI {
 	JPanel mainMenuPanel;
 	Account currentUser = null;
 	
+	JPanel transactionPanel() {
+		JPanel transactionPanel = new JPanel();
+		transactionPanel.setLayout(null);
+		transactionPanel.setPreferredSize(new Dimension(400, 50));
+		transactionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		return transactionPanel;
+	}
+	
 	JPanel mainMenuPanel() {
 		JPanel mainMenu = new JPanel();
 		
@@ -91,8 +99,14 @@ public class GUI {
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
 		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
-		JScrollPane transactionHistoryPane = new JScrollPane();
-		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
+		JPanel transactionHistoryPanel = new JPanel();
+		transactionHistoryPanel.setPreferredSize(new Dimension(400, 250));
+		transactionHistoryPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		for (int i = 0; i < 20; i++) {
+			transactionHistoryPanel.add(transactionPanel());
+		}
+		JScrollPane transactionHistoryScroll = new JScrollPane(transactionHistoryPanel);
+		transactionHistoryScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		JButton accountButton = new JButton("Account");
 		accountButton.addActionListener(new ActionListener() {
@@ -146,7 +160,7 @@ public class GUI {
 		mainMenu.add(lifestyleServicesSubPanel);
 		mainMenu.add(financialServiceSubPanel);
 		mainMenu.add(transactionHistoryLabel);
-		mainMenu.add(transactionHistoryPane);
+		mainMenu.add(transactionHistoryScroll);
 		mainMenu.add(accountButton);
 		mainMenu.add(logOutButton);
 		
