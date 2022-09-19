@@ -93,6 +93,17 @@ public class GUI {
 		JScrollPane transactionHistoryPane = new JScrollPane();
 		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
 		
+		JButton accountButton = new JButton("Account");
+		accountButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ""
+						+ "Name: " + currentUser.firstName + " " + currentUser.lastName + "\n"
+						+ "Phone Number: +63" + currentUser.phoneNumber + "\n"
+						+ "Email Address: " + currentUser.emailAddress);
+			}
+		});
+		
 		JButton logOutButton = new JButton("Log out");
 		logOutButton.addActionListener(new ActionListener() {
 			@Override
@@ -134,6 +145,7 @@ public class GUI {
 		mainMenu.add(financialServiceSubPanel);
 		mainMenu.add(transactionHistoryLabel);
 		mainMenu.add(transactionHistoryPane);
+		mainMenu.add(accountButton);
 		mainMenu.add(logOutButton);
 		
 		return mainMenu;
