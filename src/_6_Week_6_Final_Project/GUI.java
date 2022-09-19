@@ -3,6 +3,7 @@ package _6_Week_6_Final_Project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -100,13 +101,14 @@ public class GUI {
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
 		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
 		JPanel transactionHistoryPanel = new JPanel();
-		transactionHistoryPanel.setPreferredSize(new Dimension(400, 250));
+		transactionHistoryPanel.setLayout(new FlowLayout());
 		transactionHistoryPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		for (int i = 0; i < 20; i++) {
 			transactionHistoryPanel.add(transactionPanel());
 		}
-		JScrollPane transactionHistoryScroll = new JScrollPane(transactionHistoryPanel);
-		transactionHistoryScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		JScrollPane transactionHistoryPane = new JScrollPane(transactionHistoryPanel);
+		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
+		transactionHistoryPane.setViewportView(transactionHistoryPanel);
 		
 		JButton accountButton = new JButton("Account");
 		accountButton.addActionListener(new ActionListener() {
@@ -160,7 +162,7 @@ public class GUI {
 		mainMenu.add(lifestyleServicesSubPanel);
 		mainMenu.add(financialServiceSubPanel);
 		mainMenu.add(transactionHistoryLabel);
-		mainMenu.add(transactionHistoryScroll);
+		mainMenu.add(transactionHistoryPane);
 		mainMenu.add(accountButton);
 		mainMenu.add(logOutButton);
 		
