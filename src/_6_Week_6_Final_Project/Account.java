@@ -35,7 +35,7 @@ public class Account {
 	public Account(String phoneNumberInput, String pinCodeInput) {
 		initializeConnection();
 		try {
-			PreparedStatement loginStatement  = localConn.prepareStatement("select * from accounts where phoneNumber = ?");
+			PreparedStatement loginStatement  = localConn.prepareStatement("select * from accounts where phoneNumber = ? limit 1");
 			loginStatement.setString(1, phoneNumberInput);
 			ResultSet loginResults = loginStatement.executeQuery();
 			if (!loginResults.isBeforeFirst()) {
@@ -87,7 +87,7 @@ public class Account {
 	
 	public static void changeBalance(int id, double amount) {
 		try {
-			PreparedStatement updateBalanceStatement = localConn.prepareStatement("update accounts set balance = ? where id = ?");
+			PreparedStatement updateBalanceStatement = localConn.prepareStatement("update accounts set balance = ? where id = ? limit 1;");
 			updateBalanceStatement.setDouble(1, amount);
 			updateBalanceStatement.setInt(2, id);
 			updateBalanceStatement.executeUpdate();
@@ -103,7 +103,7 @@ public class Account {
 		initializeConnection();
 		boolean itExists = false;
 		try {
-			PreparedStatement lookForAccount = localConn.prepareStatement("select phoneNumber from accounts where phoneNumber = ? limit 1");
+			PreparedStatement lookForAccount = localConn.prepareStatement("select phoneNumber from accounts where phoneNumber = ? limit 1;");
 			lookForAccount.setString(1, phoneNumber);
 			ResultSet accountResults = lookForAccount.executeQuery();
 			if (accountResults.isBeforeFirst()) {
