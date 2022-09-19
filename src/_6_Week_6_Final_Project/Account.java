@@ -4,8 +4,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ class TransactionHistory {
 	Date date;
 	double amount;
 
-	public TransactionHistory(String description, Date date, double amount) {
+	public TransactionHistory(String description, Timestamp date, double amount) {
 		this.description = description;
 		this.date = date;
 		this.amount = amount;
@@ -40,14 +42,13 @@ public class Account {
 		transactionHistoryList = new ArrayList<>();
 		initializeConnection();
 		try {
-			PreparedStatement getTransactionStatement = localConn.prepareStatement("select * from transactionHistory where accountId = ?;");
+			PreparedStatement getTransactionStatement = localConn.prepareStatement("select * from transactionHistory where accountId = ? order by id desc;");
 			getTransactionStatement.setInt(1, id);
 			ResultSet transactionHistoryResults = getTransactionStatement.executeQuery();
 			while (transactionHistoryResults.next()) {
 				String description = transactionHistoryResults.getString("description");
-				Date date = transactionHistoryResults.getDate("date");
+				Timestamp date = transactionHistoryResults.getTimestamp("date");
 				double amount = transactionHistoryResults.getDouble("amount");
-				
 				transactionHistoryList.add(new TransactionHistory(description, date, amount));
 			}
 		} catch (CommunicationsException e) {
@@ -55,6 +56,22 @@ public class Account {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addToHistory(int accountId, String description, double amount) {
+		initializeConnection();
+		try {
+			PreparedStatement historyStatement = localConn.prepareStatement("insert into transactionHistory (accoundId, description, amount, date) values (?, ?, ?, ?);");
+			historyStatement.setInt(1, accountId);
+			historyStatement.setString(2, description);
+			historyStatement.setDouble(3, amount);
+			historyStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+		} catch (CommunicationsException e) {
+			initializeConnection();
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

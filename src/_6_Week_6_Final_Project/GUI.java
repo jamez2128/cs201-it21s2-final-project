@@ -3,13 +3,14 @@ package _6_Week_6_Final_Project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.util.Date;
 
 public class GUI {
 	ImageIcon logo;
@@ -26,11 +28,27 @@ public class GUI {
 	JPanel mainMenuPanel;
 	Account currentUser = null;
 	
-	JPanel transactionPanel() {
+	JPanel transactionPanel(double amount, String description, Date date) {
 		JPanel transactionPanel = new JPanel();
-		transactionPanel.setLayout(null);
-		transactionPanel.setPreferredSize(new Dimension(400, 50));
-		transactionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		transactionPanel.setLayout(new BorderLayout(10, 0));
+		transactionPanel.setPreferredSize(new Dimension(375, 60));
+		transactionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		JLabel amountLabel = new JLabel();
+		if (amount == 0) {
+			amountLabel.setText("");
+		} else if (amount < 0) {
+			amountLabel.setText("- P" + (amount + amount + amount));
+			amountLabel.setForeground(Color.red);
+		} else {
+			amountLabel.setText("+ P" + amount);
+			amountLabel.setForeground(new Color(0, 215, 0));
+		}
+		JLabel descriptionLabel = new JLabel(description);
+		JLabel dateLabel = new JLabel(new SimpleDateFormat("MM/dd/yyyy h:mm a").format(date));
+		
+		transactionPanel.add(amountLabel, BorderLayout.WEST);
+		transactionPanel.add(descriptionLabel, BorderLayout.CENTER);
+		transactionPanel.add(dateLabel, BorderLayout.EAST);
 		return transactionPanel;
 	}
 	
@@ -101,14 +119,13 @@ public class GUI {
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
 		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
 		JPanel transactionHistoryPanel = new JPanel();
-		transactionHistoryPanel.setLayout(new FlowLayout());
 		transactionHistoryPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		for (int i = 0; i < 20; i++) {
-			transactionHistoryPanel.add(transactionPanel());
+		transactionHistoryPanel.setLayout(new BoxLayout(transactionHistoryPanel, BoxLayout.Y_AXIS));
+		for (TransactionHistory element : currentUser.transactionHistoryList) {
+			transactionHistoryPanel.add(transactionPanel(element.amount, element.description, element.date));
 		}
 		JScrollPane transactionHistoryPane = new JScrollPane(transactionHistoryPanel);
 		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
-		transactionHistoryPane.setViewportView(transactionHistoryPanel);
 		
 		JButton accountButton = new JButton("Account");
 		accountButton.addActionListener(new ActionListener() {
@@ -316,7 +333,7 @@ public class GUI {
 						emailAddressField.setText("");
 						firstNameField.setText("");
 						lastNameField.setText("");
-						registrationStatus.setForeground(Color.BLACK);
+						registrationStatus.setForeground(new Color(0, 215, 0));
 						registrationStatus.setText("Registered Successfully!");
 					} else {
 						phoneNumberStatus.setText("Phone number is already registered");
