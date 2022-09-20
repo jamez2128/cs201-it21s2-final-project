@@ -114,7 +114,7 @@ public class LifestyleServices {
 			return false;
 		} 
 
-		Account.transact(amount, service + " subscription service");
+		Account.transact(GUI.currentUser.id, amount, service + " subscription service");
 		return true;
 	}
 }
