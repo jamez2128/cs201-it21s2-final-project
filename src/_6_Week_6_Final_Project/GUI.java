@@ -29,7 +29,7 @@ public class GUI {
 	static Account currentUser = null;
 	
 	public static boolean paymentPortal(double amount) {
-		int option = JOptionPane.showConfirmDialog(null, "You are about to pay P" + String.format("%,.2f", amount) + "\nClick Yes confirm to continue the transaction\nOthewise click No", "Payment Portal", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		int option = JOptionPane.showConfirmDialog(null, "You are about to pay P" + String.format("%,.2f", amount) + "\nClick Yes confirm to continue the transaction\nOtherwise click No", "Payment Portal", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		switch (option) {
 		case -1:
 		case 1:
