@@ -38,6 +38,7 @@ public class GUI {
 	}
 	
 	public static boolean askPINCode() {
+		currentUser.updateInfo();
 		JPasswordField pinCodeField = new JPasswordField();
 		Object[] pinCodeObjects = {"Enter PIN Code:", pinCodeField};
 		int pinCodeInput = JOptionPane.showConfirmDialog(null, pinCodeObjects, "Enter PIN code:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
@@ -121,10 +122,9 @@ public class GUI {
 					JOptionPane.showMessageDialog(null, "Invalid input, Operation cancelled");
 					return;
 				} else {
+					currentUser.updateInfo();
 					double cashInputParse = Double.parseDouble(cashInput);
-					double newAmount = currentUser.balance + cashInputParse;
-					Account.changeBalance(currentUser.id, newAmount);
-					Account.addToHistory(currentUser.id, "Cash In", cashInputParse);
+					currentUser.cashIn(cashInputParse, "Cash In");
 					refreshMainMenu();
 				}
 				mainMenuPanel.updateUI();

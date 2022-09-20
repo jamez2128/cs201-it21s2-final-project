@@ -105,16 +105,16 @@ public class LifestyleServices {
 			}
 			break;
 		}
-		
+
 		if (GUI.askPINCode() == false) {
 			return false;
 		}
-		
+			
 		if (GUI.isBalanceSufficient(amount) == false) {
 			return false;
-		} 
+		}
 
-		Account.transact(GUI.currentUser.id, amount, service + " subscription service");
+		GUI.currentUser.transact(amount, service + " subscription service");
 		return true;
 	}
 }

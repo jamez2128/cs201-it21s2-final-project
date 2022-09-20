@@ -50,7 +50,7 @@ public class FinancialServices {
 				return false;
 			}
 			
-			Account.transact(GUI.currentUser.id, amount, bankName +  " bank transfer to " + accountNumber);
+			GUI.currentUser.transact(amount, bankName +  " bank transfer to " + accountNumber);
 			return true;
 		case 2:
 			return false;

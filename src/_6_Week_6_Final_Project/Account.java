@@ -38,14 +38,16 @@ public class Account {
 	
 	static Connection localConn;
 	
-	public static void transact(int accountId, double amount, String description) {
-		double newAmount = accountId - amount;
-		Account.changeBalance(accountId, newAmount);
-		Account.addToHistory(accountId, description, (amount * (-1)));
+	public void transact(double amount, String description) {
+		double newAmount = balance - amount;
+		Account.changeBalance(id, newAmount);
+		Account.addToHistory(id, description, (amount * (-1)));
 	}
 	
-	public static void cashIn() {
-		
+	public void cashIn(double amount, String description) {
+		double newAmount = balance + amount;
+		Account.changeBalance(id, newAmount);
+		Account.addToHistory(id, description, amount);
 	}
 	
 	public void updateInfo() {
