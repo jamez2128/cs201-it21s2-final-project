@@ -177,6 +177,14 @@ public class GUI {
 			}
 		});
 		JButton sendMoneyServiceButton = new JButton("Send Money/Gift");
+		sendMoneyServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (LifestyleServices.sendMoneyGift()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton payBillsServiceButton = new JButton("Pay Bills");
 		payBillsServiceButton.addActionListener(new ActionListener() {
 			@Override
@@ -224,6 +232,14 @@ public class GUI {
 		}
 		JScrollPane transactionHistoryPane = new JScrollPane(transactionHistoryPanel);
 		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
+		
+		JButton refreshButton = new JButton("Refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				refreshMainMenu();
+			}
+		});
 		
 		JButton accountButton = new JButton("Account");
 		accountButton.addActionListener(new ActionListener() {
@@ -278,6 +294,7 @@ public class GUI {
 		mainMenu.add(financialServiceSubPanel);
 		mainMenu.add(transactionHistoryLabel);
 		mainMenu.add(transactionHistoryPane);
+		mainMenu.add(refreshButton);
 		mainMenu.add(accountButton);
 		mainMenu.add(logOutButton);
 		

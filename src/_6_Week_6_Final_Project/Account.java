@@ -37,6 +37,33 @@ public class Account {
 	static boolean isConnected = false;
 	
 	static Connection localConn;
+
+	public void sendMoneyToAnotherUser(String phoneNumber, String description, double amount) {
+		try {
+			double toUserbalance = 0;
+			int toUserId = 0;
+			String toUserFirstName = "";
+			String toUserLastName = "";
+			PreparedStatement getInfoToUser = localConn.prepareStatement("select * from accounts where phoneNumber = ? limit 1;");
+			getInfoToUser.setString(1, phoneNumber);
+			ResultSet toUserInfoResults = getInfoToUser.executeQuery();
+			while (toUserInfoResults.next()) {
+				toUserId = toUserInfoResults.getInt("id");
+				toUserbalance = toUserInfoResults.getDouble("balance");
+				toUserFirstName = toUserInfoResults.getString("firstName");
+				toUserLastName = toUserInfoResults.getString("lastName");
+			}
+			
+			transact(amount, "Sent to " + toUserFirstName + " " + " " + toUserLastName + " (+63" + phoneNumber + "): " + description);
+			addToHistory(toUserId, "From " + firstName + " " +  lastName + " (+63" + this.phoneNumber + "): " + description, amount);
+			changeBalance(toUserId, toUserbalance + amount);
+		} catch (CommunicationsException e) {
+			initializeConnection();
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void transact(double amount, String description) {
 		double newAmount = balance - amount;

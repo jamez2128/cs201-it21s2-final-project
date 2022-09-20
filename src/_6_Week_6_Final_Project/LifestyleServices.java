@@ -341,4 +341,83 @@ public class LifestyleServices {
 		return true;
 	}
 	
+	public static boolean sendMoneyGift() {
+		JTextField phoneNumberField = new JTextField();
+		JTextField amountField = new JTextField();
+		JTextField messageField = new JTextField();
+		String phoneNumber = "";
+		double amount = 0;
+		String message = "";
+		
+		Object[] sendMoneyGiftElements = {
+			"Send Money to another registered DigiCash user and send them a lovely message",
+			"Phone number:", phoneNumberField,
+			"Amount:", amountField,
+			"Message:", messageField
+		};
+		
+		int response = JOptionPane.showConfirmDialog(null, sendMoneyGiftElements, "Send Money/Gift", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (response) {
+		case -1:
+		case 2:
+			return false;
+		case 0:
+			if (phoneNumberField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Phone number field is empty", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
+			} else {
+				phoneNumber = phoneNumberField.getText();
+			}
+
+			if (phoneNumber.substring(0, 2).equals("09") && phoneNumber.length() == 11) {
+				phoneNumber = phoneNumber.substring(1, 11);
+			} else if (phoneNumber.substring(0, 4).equals("+639") && phoneNumber.length() == 13) {
+				phoneNumber = phoneNumber.substring(3, 13);
+			} else if (phoneNumber.substring(0, 1).equals("9") && phoneNumber.length() == 10) {
+			} else {
+				JOptionPane.showMessageDialog(null, "Phone number field is invalid", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
+			if (amountField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Amount field is empty", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
+			if (amountField.getText().matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Amount field is invalid", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
+			} else {
+				amount =  Double.parseDouble(amountField.getText());
+			}
+			
+			message = messageField.getText();
+			if (message.length() >= 255) {
+				JOptionPane.showMessageDialog(null, "Message is too long", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			break;
+		}
+		if (Account.isAccountExists(phoneNumber) == false) {
+			JOptionPane.showMessageDialog(null, "Account doesn't exist", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+			
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+		
+		GUI.currentUser.sendMoneyToAnotherUser(phoneNumber, message, amount);
+
+		return true;
+	}
+	
 }
