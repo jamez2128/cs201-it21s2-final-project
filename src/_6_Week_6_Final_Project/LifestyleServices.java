@@ -9,7 +9,7 @@ public class LifestyleServices {
 		String service = "";
 		
 		String[] moviesMainMenu = {
-				"Disney Plus",
+				"Disney+",
 				"Hulu",
 				"Netflix"
 		};
@@ -119,6 +119,141 @@ public class LifestyleServices {
 		}
 
 		GUI.currentUser.transact(amount, service + " subscription service");
+		return true;
+	}
+	
+	public static boolean Games() {
+		String service = "";
+		double amount = 0;
+
+		String[] gamesMenu = {
+			"Xbox Game Pass Ultimate",
+			"PlayStation Plus",
+			"Nintendo Switch Online"
+		};
+		
+		double[] xboxPrices = {
+			560.53,
+			1424.68,
+			2279.83,
+			3420.03
+		};
+		
+		String[] xboxMenu = {
+			"P" + xboxPrices[0] + " for a month",
+			"P" + xboxPrices[1] + " for 3 Months",
+			"P" + xboxPrices[2] + " for 6 Months",
+			"P" + xboxPrices[3] + " for 12 Months"
+		};
+		
+		double[] playstationPrices = {
+				1424.68,
+				569.53,
+				3420.03
+		};
+		
+		String[] playstationMenu = {
+			"P" + playstationPrices[0] + " for 4 months",
+			"P" + playstationPrices[1] + " for a month",
+			"P" + playstationPrices[2]  +" for a year"
+		};
+		
+		double[] nintendoPrices = {
+			227.47,
+			455.51,
+			1139.63
+		};
+		
+		String[] nintendoMenu = {
+			"P" + nintendoPrices[0] + " for a month",
+			"P" + nintendoPrices[1] + " for 3 months",
+			"P" + nintendoPrices[2] + " for a year"
+		};
+		
+		int choice = JOptionPane.showOptionDialog(null, "************Games Monthly Payment**********", "Games", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, gamesMenu, 0);
+		switch (choice) {
+		case -1:
+			return false;
+		case 0:
+			service = "Xbox Game Pass subscription";
+			int xboxChoice = JOptionPane.showOptionDialog(null, "Xbox Game Pass", "Games", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, xboxMenu, 0);
+			switch (xboxChoice) {
+			case -1:
+				return false;
+			case 0:
+				service += " for a month";
+				amount = xboxPrices[0];
+				break;
+			case 1:
+				service += " for 3 months";
+				amount = xboxPrices[1];
+				break;
+			case 2:
+				service += " for 6 months";
+				amount = xboxPrices[2];
+				break;
+			case 3:
+				service += " for 12 months";
+				amount = xboxPrices[3];
+				break;
+			}
+			break;
+		case 1:
+			service = "PlayStation Plus subscription";
+			int playstationChoice = JOptionPane.showOptionDialog(null, "PlayStation Plus", "Games", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, playstationMenu, 0);
+			switch (playstationChoice) {
+			case -1:
+				return false;
+			case 0:
+				service += " for 4 months";
+				amount = playstationPrices[0];
+				break;
+			case 1:
+				service += " for a month";
+				amount = playstationPrices[1];
+				break;
+			case 2:
+				service += " for a year";
+				amount = playstationPrices[2];
+				break;
+			}
+			break;
+		case 2:
+			service = "Nintendo Switch online subscription";
+			int nintendoChoice = JOptionPane.showOptionDialog(null, "Nintendo Switch Online", "Games", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, nintendoMenu, 0);
+			switch (nintendoChoice) {
+			case -1:
+				return false;
+			case 0:
+				service += " for a month";
+				amount = nintendoPrices[0];
+				break;
+			case 1:
+				service += " for 3 months";
+				amount = nintendoPrices[1];
+				break;
+			case 2:
+				service += " for a year";
+				amount = nintendoPrices[2];
+				break;
+			}
+			break;
+		}
+		
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+			
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+
+		GUI.currentUser.transact(amount, service);
+		
 		return true;
 	}
 }

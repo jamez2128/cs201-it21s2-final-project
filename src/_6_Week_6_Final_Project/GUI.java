@@ -35,7 +35,7 @@ public class GUI {
 		case 1:
 			return false;
 		case 0:
-			JOptionPane.showMessageDialog(null, "Paid " + String.format("%,.2f", amount) + " successfully\nThank you for using DigiCash!", null, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Paid P" + String.format("%,.2f", amount) + " successfully\nThank you for using DigiCash!", null, JOptionPane.INFORMATION_MESSAGE);
 			return true;
 		}
 		return false;
@@ -73,11 +73,11 @@ public class GUI {
 		return false;
 	}
 	
-	JPanel transactionPanel(double amount, String description, Date date) {
-		JPanel transactionPanel = new JPanel();
-		transactionPanel.setLayout(new BorderLayout(10, 0));
-		transactionPanel.setPreferredSize(new Dimension(375, 60));
-		transactionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+	JButton transactionInfoButton(double amount, String description, Date date) {
+		JButton infoButton = new JButton();
+		infoButton.setLayout(new BorderLayout(10, 0));
+		infoButton.setPreferredSize(new Dimension(375, 60));
+		infoButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		JLabel amountLabel = new JLabel();
 		if (amount == 0) {
 			amountLabel.setText("");
@@ -92,10 +92,20 @@ public class GUI {
 		JLabel descriptionLabel = new JLabel(description);
 		JLabel dateLabel = new JLabel(new SimpleDateFormat("MM/dd/yyyy h:mm a").format(date));
 		
-		transactionPanel.add(amountLabel, BorderLayout.WEST);
-		transactionPanel.add(descriptionLabel, BorderLayout.CENTER);
-		transactionPanel.add(dateLabel, BorderLayout.EAST);
-		return transactionPanel;
+		infoButton.add(amountLabel, BorderLayout.WEST);
+		infoButton.add(descriptionLabel, BorderLayout.CENTER);
+		infoButton.add(dateLabel, BorderLayout.EAST);
+		infoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ""
+						+ "Amount: " + amountLabel.getText() + "\n"
+						+ "Description: " + description + "\n"
+						+ "Date: " + new SimpleDateFormat("MM/dd/yyyy h:mm a").format(date),
+						"Transaction Info", JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		return infoButton;
 	}
 	
 	public void refreshMainMenu() {
@@ -149,6 +159,14 @@ public class GUI {
 		lifestyleServicesSubPanel.setLayout(new GridLayout(0, 1));
 		JLabel lifestyleServicesLabel = new JLabel("Lifestyle Services");
 		JButton gamesServiceButton = new JButton("Games");
+		gamesServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (LifestyleServices.Games()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton moviesServiceButton = new JButton("Movies");
 		moviesServiceButton.addActionListener(new ActionListener() {
 			@Override
@@ -194,7 +212,7 @@ public class GUI {
 		transactionHistoryPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		transactionHistoryPanel.setLayout(new BoxLayout(transactionHistoryPanel, BoxLayout.Y_AXIS));
 		for (TransactionHistory element : currentUser.transactionHistoryList) {
-			transactionHistoryPanel.add(transactionPanel(element.amount, element.description, element.date));
+			transactionHistoryPanel.add(transactionInfoButton(element.amount, element.description, element.date));
 		}
 		JScrollPane transactionHistoryPane = new JScrollPane(transactionHistoryPanel);
 		transactionHistoryPane.setPreferredSize(new Dimension(400, 250));
