@@ -226,4 +226,62 @@ public class FinancialServices {
 		
 		return true;
 	}
+	
+	public static boolean creditDebit() {
+		JTextField field1 = new JTextField();
+	    JTextField field2 = new JTextField();
+	    String store = "";
+	    double amount = 0;
+	    
+	    
+	    Object[] fields = {
+	    	"Store you want to cash out:", field1,
+	        "Enter Amount", field2,
+	    };
+
+		int response = JOptionPane.showConfirmDialog(null, fields, "Credit/Debit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (response) {
+		case -1:
+		case 2:
+			return false;
+		case 0:
+			if (field1.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Store field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				store = field1.getText();
+			}
+			
+			if (field2.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Amount field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+
+			if (field2.getText().matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				amount = Double.parseDouble(field2.getText());
+			}
+			
+			break;
+		}
+
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+		
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+		
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+			
+		GUI.currentUser.transact(amount, "Cashed out from " + store);
+		
+		return true;
+	}
+	
 }

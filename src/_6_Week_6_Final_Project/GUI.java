@@ -237,6 +237,14 @@ public class GUI {
 			}
 		});
 		JButton creditDebitServiceButton = new JButton("Credit and Debit");
+		creditDebitServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (FinancialServices.creditDebit()) {
+					refreshMainMenu();
+				}
+			}
+		});
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
 		transactionHistoryLabel.setPreferredSize(new Dimension(400, 15));
