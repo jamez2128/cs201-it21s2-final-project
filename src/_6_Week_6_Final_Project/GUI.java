@@ -128,7 +128,7 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Loan.mFrame();
+				Loan.Loans();
 				
 			}
 		});
