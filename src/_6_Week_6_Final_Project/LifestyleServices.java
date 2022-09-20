@@ -114,6 +114,10 @@ public class LifestyleServices {
 			return false;
 		}
 
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+
 		GUI.currentUser.transact(amount, service + " subscription service");
 		return true;
 	}

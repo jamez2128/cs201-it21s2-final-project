@@ -50,6 +50,11 @@ public class FinancialServices {
 				return false;
 			}
 			
+			if (GUI.paymentPortal(amount) == false) {
+				return false;
+			}
+			
+			
 			GUI.currentUser.transact(amount, bankName +  " bank transfer to " + accountNumber);
 			return true;
 		case 2:

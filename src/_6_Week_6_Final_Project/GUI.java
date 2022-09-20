@@ -28,9 +28,23 @@ public class GUI {
 	JPanel mainMenuPanel;
 	static Account currentUser = null;
 	
+	public static boolean paymentPortal(double amount) {
+		int option = JOptionPane.showConfirmDialog(null, "You are about to pay P" + String.format("%,.2f", amount) + "\nClick Yes confirm to continue the transaction\nOthewise click No", "Payment Portal", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		switch (option) {
+		case -1:
+		case 1:
+			return false;
+		case 0:
+			JOptionPane.showMessageDialog(null, "Paid " + String.format("%,.2f", amount) + " successfully\nThank you for using DigiCash!", null, JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean isBalanceSufficient(double amount) {
+		currentUser.updateInfo();
 		if (currentUser.balance < amount) {
-			JOptionPane.showMessageDialog(null, "Insufficient balance", null, JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Insufficient balance", null, JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
 			return true;
@@ -38,7 +52,6 @@ public class GUI {
 	}
 	
 	public static boolean askPINCode() {
-		currentUser.updateInfo();
 		JPasswordField pinCodeField = new JPasswordField();
 		Object[] pinCodeObjects = {"Enter PIN Code:", pinCodeField};
 		int pinCodeInput = JOptionPane.showConfirmDialog(null, pinCodeObjects, "Enter PIN code:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
