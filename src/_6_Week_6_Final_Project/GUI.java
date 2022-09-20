@@ -27,7 +27,7 @@ public class GUI {
 	ImageIcon logo;
 	JFrame frame;
 	JPanel mainMenuPanel;
-	Account currentUser = null;
+	static Account currentUser = null;
 	
 	JPanel transactionPanel(double amount, String description, Date date) {
 		JPanel transactionPanel = new JPanel();
@@ -114,6 +114,14 @@ public class GUI {
 		financialServiceSubPanel.setPreferredSize(new Dimension(200, 200));
 		JLabel financialServicesLabel = new JLabel("Financial Services");
 		JButton fundTransferServiceButton = new JButton("Fund Transfer");
+		fundTransferServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (FinancialServices.FundTransfer()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton insuranceServiceButton = new JButton("Insurance");
 		JButton loanServiceButton = new JButton("Loan");
 		loanServiceButton.addActionListener(new ActionListener() {
