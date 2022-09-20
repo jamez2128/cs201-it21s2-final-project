@@ -62,4 +62,24 @@ public class FinancialServices {
 		}
 		return false;
 	}
+	
+	public static boolean Loan() {
+		String value = JOptionPane.showInputDialog(null, "Enter the amount you want to loan:", "Loan", JOptionPane.QUESTION_MESSAGE);
+		if (value == null) {
+			return false;
+		}
+		double valueParsed = 0;
+		if (value.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "The field is empty!", "Loan", JOptionPane.ERROR_MESSAGE);
+		} else if (value.matches("\\D+")) {
+			JOptionPane.showMessageDialog(null, "Invalid input", "Loan", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else {
+			valueParsed = Double.parseDouble(value);
+		}
+		GUI.currentUser.updateInfo();
+		GUI.currentUser.cashIn(valueParsed, "Borrowed Loan");
+		JOptionPane.showMessageDialog(null, "Your loan has been approved!", "Loan", JOptionPane.DEFAULT_OPTION);
+		return true;
+	}
 }

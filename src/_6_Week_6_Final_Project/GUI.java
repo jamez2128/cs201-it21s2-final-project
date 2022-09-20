@@ -177,11 +177,12 @@ public class GUI {
 		JButton insuranceServiceButton = new JButton("Insurance");
 		JButton loanServiceButton = new JButton("Loan");
 		loanServiceButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Loan.Loans();
-				
+				if (FinancialServices.Loan()) {
+					currentUser.updateInfo();
+					refreshMainMenu();
+				}
 			}
 		});
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
