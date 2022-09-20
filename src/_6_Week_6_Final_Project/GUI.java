@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -37,7 +38,7 @@ public class GUI {
 		if (amount == 0) {
 			amountLabel.setText("");
 		} else if (amount < 0) {
-			amountLabel.setText("- P" + (amount + amount + amount));
+			amountLabel.setText("- P" + (amount * (-1)));
 			amountLabel.setForeground(Color.red);
 		} else {
 			amountLabel.setText("+ P" + amount);
@@ -50,6 +51,15 @@ public class GUI {
 		transactionPanel.add(descriptionLabel, BorderLayout.CENTER);
 		transactionPanel.add(dateLabel, BorderLayout.EAST);
 		return transactionPanel;
+	}
+	
+	public void refreshMainMenu() {
+		currentUser.updateInfo();
+		frame.getContentPane().removeAll();;
+		mainMenuPanel = mainMenuPanel();
+		frame.add(mainMenuPanel());
+		frame.revalidate();
+		frame.repaint();
 	}
 	
 	JPanel mainMenuPanel() {
@@ -80,10 +90,11 @@ public class GUI {
 					JOptionPane.showMessageDialog(null, "Invalid input, Operation cancelled");
 					return;
 				} else {
-					double newAmount = (currentUser.balance + Double.parseDouble(cashInput));
+					double cashInputParse = Double.parseDouble(cashInput);
+					double newAmount = currentUser.balance + cashInputParse;
 					Account.changeBalance(currentUser.id, newAmount);
-					currentUser.balance = newAmount;
-					balanceLabel.setText("Balance: P" + currentUser.balance);
+					Account.addToHistory(currentUser.id, "Cash In", cashInputParse);
+					refreshMainMenu();
 				}
 				mainMenuPanel.updateUI();
 			}

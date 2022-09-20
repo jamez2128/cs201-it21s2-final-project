@@ -38,6 +38,31 @@ public class Account {
 	
 	static Connection localConn;
 	
+	public void updateInfo() {
+		initializeConnection();
+		try {
+			PreparedStatement refreshStatment  = localConn.prepareStatement("select * from accounts where id = ? limit 1");
+			refreshStatment.setInt(1, id);
+			ResultSet refreshResults = refreshStatment.executeQuery();
+			while (refreshResults.next()) {
+				phoneNumber = refreshResults.getString("phoneNumber");
+				pinCode = refreshResults.getString("pinCode");
+				id = refreshResults.getInt("id");
+				lastName = refreshResults.getString("lastName");
+				firstName = refreshResults.getString("firstName");
+				emailAddress = refreshResults.getString("emailAddress");
+				balance = refreshResults.getDouble("balance");
+				initializeTransactionList();
+				return;
+			}
+		} catch (CommunicationsException e) {
+			initializeConnection();
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	public void initializeTransactionList() {
 		transactionHistoryList = new ArrayList<>();
 		initializeConnection();
@@ -63,11 +88,11 @@ public class Account {
 	public static void addToHistory(int accountId, String description, double amount) {
 		initializeConnection();
 		try {
-			PreparedStatement historyStatement = localConn.prepareStatement("insert into transactionHistory (accoundId, description, amount, date) values (?, ?, ?, ?);");
+			PreparedStatement historyStatement = localConn.prepareStatement("insert into transactionHistory (accountId, description, amount) values (?, ?, ?);");
 			historyStatement.setInt(1, accountId);
 			historyStatement.setString(2, description);
 			historyStatement.setDouble(3, amount);
-			historyStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			historyStatement.executeUpdate();
 		} catch (CommunicationsException e) {
 			initializeConnection();
 			e.printStackTrace();
@@ -134,6 +159,11 @@ public class Account {
 			registerStatment.setString(4, lastName);
 			registerStatment.setString(5, emailAddress);
 			registerStatment.executeUpdate();
+			PreparedStatement getNewlyCreatedAccountIdStatement = localConn.prepareStatement("select id from accounts order by id desc limit 1;");
+			ResultSet idResult = getNewlyCreatedAccountIdStatement.executeQuery();
+			while (idResult.next()) {
+				addToHistory(idResult.getInt("id"), "Digicash created account", 0);
+			}
 		} catch (CommunicationsException e) {
 			initializeConnection();
 			e.printStackTrace();
