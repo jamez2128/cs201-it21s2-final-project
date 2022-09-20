@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,6 +28,37 @@ public class GUI {
 	JPanel mainMenuPanel;
 	static Account currentUser = null;
 	
+	public static boolean isBalanceSufficient(double amount) {
+		if (currentUser.balance < amount) {
+			JOptionPane.showMessageDialog(null, "Insufficient balance", null, JOptionPane.WARNING_MESSAGE);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public static boolean askPINCode() {
+		JPasswordField pinCodeField = new JPasswordField();
+		Object[] pinCodeObjects = {"Enter PIN Code:", pinCodeField};
+		int pinCodeInput = JOptionPane.showConfirmDialog(null, pinCodeObjects, "Enter PIN code:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (pinCodeInput) {
+		case -1:
+			JOptionPane.showMessageDialog(null, "Operation cancelled", null, JOptionPane.WARNING_MESSAGE);
+			return false;
+		case 0:
+			if (currentUser.pinCode.equals(pinCodeField.getText())) {
+				return true;
+			} else {
+				JOptionPane.showMessageDialog(null, "Wrong PIN code!\nOperation cancelled", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+		case 2:
+			JOptionPane.showMessageDialog(null, "Operation cancelled", null, JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		return false;
+	}
+	
 	JPanel transactionPanel(double amount, String description, Date date) {
 		JPanel transactionPanel = new JPanel();
 		transactionPanel.setLayout(new BorderLayout(10, 0));
@@ -38,10 +68,11 @@ public class GUI {
 		if (amount == 0) {
 			amountLabel.setText("");
 		} else if (amount < 0) {
-			amountLabel.setText("- P" + (amount * (-1)));
+			amount = amount * (-1);
+			amountLabel.setText("- P" + String.format("%,.2f", amount));
 			amountLabel.setForeground(Color.red);
 		} else {
-			amountLabel.setText("+ P" + amount);
+			amountLabel.setText("- P" + String.format("%,.2f", amount));
 			amountLabel.setForeground(new Color(0, 215, 0));
 		}
 		JLabel descriptionLabel = new JLabel(description);
@@ -77,7 +108,7 @@ public class GUI {
 		balanceSubPanel.setLayout(new BorderLayout());
 		balanceSubPanel.setPreferredSize(new Dimension(400, 40));
 		balanceSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		JLabel balanceLabel = new JLabel("Balance: P" + currentUser.balance);
+		JLabel balanceLabel = new JLabel("Balance: P" + String.format("%,.2f", currentUser.balance));
 		balanceLabel.setFont(new Font(balanceLabel.getFont().getName(), 20, 20));
 		JButton cashInButton = new JButton("Cash In");
 		cashInButton.addActionListener(new ActionListener() {
@@ -106,6 +137,14 @@ public class GUI {
 		JLabel lifestyleServicesLabel = new JLabel("Lifestyle Services");
 		JButton gamesServiceButton = new JButton("Games");
 		JButton moviesServiceButton = new JButton("Movies");
+		moviesServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (LifestyleServices.Movies()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton sendMoneyServiceButton = new JButton("Send Money/Gift");
 		JButton payBillsServiceButton = new JButton("Pay Bills");
 		

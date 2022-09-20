@@ -19,7 +19,7 @@ public class FinancialServices {
 		int response = JOptionPane.showConfirmDialog(null, fields, "Fund Transfer!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
 		switch (response) {
 		case -1:
-			break;
+			return false;
 		case 0:
 			String bankName = bankNameField.getText();
 			double amount;
@@ -42,23 +42,18 @@ public class FinancialServices {
 				amount = Double.parseDouble(amountField.getText());
 			}
 			
-			String pinCodeInput = JOptionPane.showInputDialog("Enter PIN Code:");
-			if (!GUI.currentUser.pinCode.equals(pinCodeInput)) {
-				JOptionPane.showMessageDialog(null, "Wrong PIN code!\nOperation cancelled", null, JOptionPane.WARNING_MESSAGE);
+			if (GUI.askPINCode() == false) {
 				return false;
 			}
 			
-			if (GUI.currentUser.balance < amount) {
-				JOptionPane.showMessageDialog(null, "Insufficient balance", null, JOptionPane.WARNING_MESSAGE);
-			} else {
-				double newAmount = GUI.currentUser.balance - amount;
-				Account.changeBalance(GUI.currentUser.id, newAmount);
-				Account.addToHistory(GUI.currentUser.id, bankName +  " bank transfer to " + accountNumber, (amount * (-1)));
-				return true;
+			if (GUI.isBalanceSufficient(amount) == false) {
+				return false;
 			}
-			break;
+			
+			Account.transact(amount, bankName +  " bank transfer to " + accountNumber);
+			return true;
 		case 2:
-			break;
+			return false;
 		}
 		return false;
 	}

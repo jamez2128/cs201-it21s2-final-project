@@ -38,6 +38,12 @@ public class Account {
 	
 	static Connection localConn;
 	
+	public static void transact(double amount, String description) {
+		double newAmount = GUI.currentUser.balance - amount;
+		Account.changeBalance(GUI.currentUser.id, newAmount);
+		Account.addToHistory(GUI.currentUser.id, description, (amount * (-1)));
+	}
+	
 	public void updateInfo() {
 		initializeConnection();
 		try {
