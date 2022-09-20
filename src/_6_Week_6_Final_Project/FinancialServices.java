@@ -23,7 +23,7 @@ public class FinancialServices {
 		case 0:
 			String bankName = bankNameField.getText();
 			double amount;
-			String accountNumber = accountNumberField.getText();
+			String accountNumber = "";
 			
 			if (bankName.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Bank name is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
@@ -33,6 +33,13 @@ public class FinancialServices {
 			if (accountNumber.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Account number is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
 				return false;
+			}
+
+			if (accountNumber.matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Invalid acccount number please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				accountNumber = accountNumberField.getText();
 			}
 
 			if (amountField.getText().matches("\\D+")) {
