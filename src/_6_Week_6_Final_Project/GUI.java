@@ -209,6 +209,14 @@ public class GUI {
 			}
 		});
 		JButton insuranceServiceButton = new JButton("Insurance");
+		insuranceServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (FinancialServices.insurance()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton loanServiceButton = new JButton("Loan");
 		loanServiceButton.addActionListener(new ActionListener() {
 			@Override

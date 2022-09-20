@@ -86,4 +86,71 @@ public class FinancialServices {
 		JOptionPane.showMessageDialog(null, "Your loan has been approved!", "Loan", JOptionPane.DEFAULT_OPTION);
 		return true;
 	}
+	
+	public static boolean insurance() {
+	    JTextField field1 = new JTextField();
+	    JTextField field2 = new JTextField();
+	    JTextField field3 = new JTextField();
+	    String insuranceType = "";
+	    double amount = 0;
+	    String name = "";
+	    
+	    Object[] fields = {
+	    	"Enter Type of Insurance", field1,
+	        "Enter Amount", field2,
+	        "Enter Name", field3
+	    };
+
+		int response = JOptionPane.showConfirmDialog(null, fields, "Insurance", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (response) {
+		case -1:
+		case 2:
+			return false;
+		case 0:
+			if (field1.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Insurance type is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				insuranceType = field1.getText();
+			}
+			
+			if (field2.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Amount field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+
+			if (field2.getText().matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				amount = Double.parseDouble(field2.getText());
+			}
+			
+			if (field3.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Name field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				name = field3.getText();
+			}
+			break;
+		}
+
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+		
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+		
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+			
+		GUI.currentUser.transact(amount, "Paid " + insuranceType + " insurance for " + name);
+		
+		return true;
+	}
+	
+	
 }
