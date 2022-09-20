@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,10 +26,23 @@ public class Loan {
 			label.setFont(new Font(label.getFont().getName(), Font.BOLD, 13));
 			
 		JTextField textbox = new JTextField(20);
+
 			textbox.setBounds(60, 50, 182, 25);
 		
 		JButton enter = new JButton("Enter");
 			enter.setBounds(60, 80, 80, 25);
+			enter.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					String initial = textbox.getText();
+					double value = Double.parseDouble(initial);
+					
+						
+					
+				}
+			});
 		
 		JButton cancel = new JButton("Cancel");
 			cancel.setBounds(161, 80, 80, 25);		
