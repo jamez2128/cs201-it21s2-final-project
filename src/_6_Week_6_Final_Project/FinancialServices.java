@@ -152,5 +152,78 @@ public class FinancialServices {
 		return true;
 	}
 	
-	
+	public static boolean purchaseService() {
+		JTextField field1 = new JTextField();
+	    JTextField field2 = new JTextField();
+	    JTextField field3 = new JTextField();
+	    JTextField field4 = new JTextField();
+	    String service = "";
+	    double amount = 0;
+	    String product = "";
+	    String address = "";
+	    
+	    Object[] fields = {
+	    	"Enter service", field1,
+	        "Enter Amount", field2,
+	        "Enter product:", field3,
+	        "Enter Address:", field4
+	    };
+
+		int response = JOptionPane.showConfirmDialog(null, fields, "Purchase service", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (response) {
+		case -1:
+		case 2:
+			return false;
+		case 0:
+			if (field1.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Service field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				service = field1.getText();
+			}
+			
+			if (field2.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Amount field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+
+			if (field2.getText().matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				amount = Double.parseDouble(field2.getText());
+			}
+			
+			if (field3.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Product field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				product = field3.getText();
+			}
+
+			if (field4.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Address field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			} else {
+				address = field4.getText();
+			}
+			break;
+		}
+
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+		
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+		
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+			
+		GUI.currentUser.transact(amount, "Bought " + product + " from " + service + " and will be delivered in " + address);
+		
+		return true;
+	}
 }

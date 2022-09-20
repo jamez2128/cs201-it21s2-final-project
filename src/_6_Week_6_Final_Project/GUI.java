@@ -228,6 +228,14 @@ public class GUI {
 			}
 		});
 		JButton purchaseServiceButton = new JButton("Purchase Product/Service");
+		purchaseServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (FinancialServices.purchaseService()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		JButton creditDebitServiceButton = new JButton("Credit and Debit");
 
 		JLabel transactionHistoryLabel = new JLabel("Transaction History");
