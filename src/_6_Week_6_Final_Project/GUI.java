@@ -171,7 +171,7 @@ public class GUI {
 		moviesServiceButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (LifestyleServices.Movies()) {
+				if (LifestyleServices.movies()) {
 					refreshMainMenu();
 				}
 			}
@@ -195,7 +195,7 @@ public class GUI {
 		fundTransferServiceButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (FinancialServices.FundTransfer()) {
+				if (FinancialServices.fundTransfer()) {
 					refreshMainMenu();
 				}
 			}
@@ -205,7 +205,7 @@ public class GUI {
 		loanServiceButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (FinancialServices.Loan()) {
+				if (FinancialServices.loan()) {
 					currentUser.updateInfo();
 					refreshMainMenu();
 				}

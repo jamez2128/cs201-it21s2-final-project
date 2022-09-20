@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 
 public class LifestyleServices {
 
-	public static boolean Movies() {
+	public static boolean movies() {
 		double amount = 0;
 		String service = "";
 		

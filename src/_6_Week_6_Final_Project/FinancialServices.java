@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 
 public class FinancialServices {
 
-	public static boolean FundTransfer() {
+	public static boolean fundTransfer() {
 		JTextField bankNameField = new JTextField();
 		JTextField amountField = new JTextField();
 		JTextField accountNumberField = new JTextField();
@@ -67,7 +67,7 @@ public class FinancialServices {
 		return true;
 	}
 	
-	public static boolean Loan() {
+	public static boolean loan() {
 		String value = JOptionPane.showInputDialog(null, "Enter the amount you want to loan:", "Loan", JOptionPane.QUESTION_MESSAGE);
 		if (value == null) {
 			return false;
