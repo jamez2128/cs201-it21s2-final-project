@@ -1,6 +1,7 @@
 package _6_Week_6_Final_Project;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class LifestyleServices {
 
@@ -261,4 +262,83 @@ public class LifestyleServices {
 		
 		return true;
 	}
+	
+	public static boolean payBills() {
+		JTextField billerNameField = new JTextField();
+		JTextField accountNameField = new JTextField();
+		JTextField accountNumberField = new JTextField();
+		JTextField amountField = new JTextField();
+		String billerName = "";
+		String accountName = "";
+		String accountNumber = "";
+		double amount = 0;
+		
+		Object[] payBillElements = {
+			"Biller:", billerNameField,
+			"Account name:", accountNameField,
+			"Account number:", accountNumberField,
+			"Amount:", amountField
+		};
+		
+		int response = JOptionPane.showConfirmDialog(null, payBillElements, "Pay Bills", JOptionPane.OK_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION);
+		switch (response) {
+		case -1:
+		case 2:
+			return false;
+		case 0:
+			if (billerNameField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Biller field is empty", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+			} else {
+				billerName = billerNameField.getText();
+			}
+
+			if (accountNameField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Account name field is empty", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+			} else {
+				accountName = accountNameField.getText();
+			}
+			
+			if (accountNumberField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Account number field is empty", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+			} else {
+				accountNumber = accountNumberField.getText();
+			}
+			
+			if (accountNumber.matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Account name field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
+			if (amountField.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Amount field is empty", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+				
+			if (amountField.getText().matches("\\D+")) {
+				JOptionPane.showMessageDialog(null, "Amount field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+			} else {
+				amount = Double.parseDouble(amountField.getText());
+			}
+			break;
+		}
+
+		if (GUI.askPINCode() == false) {
+			return false;
+		}
+			
+		if (GUI.isBalanceSufficient(amount) == false) {
+			return false;
+		}
+
+		if (GUI.paymentPortal(amount) == false) {
+			return false;
+		}
+		GUI.currentUser.transact(amount, "Paid " + billerName + " bill for " + accountName + " with the account number " + accountNumber);
+		
+		return true;
+	}
+	
 }

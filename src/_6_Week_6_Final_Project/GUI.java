@@ -178,6 +178,14 @@ public class GUI {
 		});
 		JButton sendMoneyServiceButton = new JButton("Send Money/Gift");
 		JButton payBillsServiceButton = new JButton("Pay Bills");
+		payBillsServiceButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (LifestyleServices.payBills()) {
+					refreshMainMenu();
+				}
+			}
+		});
 		
 		JPanel financialServiceSubPanel = new JPanel();
 		financialServiceSubPanel.setLayout(new GridLayout(0, 1));
