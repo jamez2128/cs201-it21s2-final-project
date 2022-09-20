@@ -21,9 +21,9 @@ public class LifestyleServices {
 		};
 		
 		String[] disneyPlusChoices = {
-			"P" + disneyPlusPrices[0] + " per month ad-supported version",
-			"P" + disneyPlusPrices[1] + " per month ad free version",
-			"P" + disneyPlusPrices[2] + " Get year-round access to disney"
+			"P" + disneyPlusPrices[0] + " for a month with ad-supported version",
+			"P" + disneyPlusPrices[1] + " for a month ad free version",
+			"P" + disneyPlusPrices[2] + " for a year"
 		};
 		
 		double[] huluPrices = {
@@ -33,7 +33,7 @@ public class LifestyleServices {
 		
 		String[] huluChoices = {
 				"P" + huluPrices[0] + " Hulu + Live Tv",
-				"P" + huluPrices[1] + " Hulu no Ad + Live Tv\n "
+				"P" + huluPrices[1] + " Hulu no Ad + Live Tv"
 		};
 		
 		double[] netflixPrices = {
@@ -43,9 +43,9 @@ public class LifestyleServices {
 		};
 		
 		String[] netflixChoices = {
-			"P" + netflixPrices[0] + " Per Month Plan offering 480P Streaming",
-			"P" + netflixPrices[1] + "883.08-Per Month Plan for 1080P Streaming",
-			"P" + netflixPrices[2] + "1,139-Per Month Plan for for 4k Streaming "
+			"P" + netflixPrices[0] + " Monthly Plan offering 480P Streaming",
+			"P" + netflixPrices[1] + " Monthy Plan Plan for 1080P Streaming",
+			"P" + netflixPrices[2] + " Monthly Plan for for 4k Streaming "
 		};
 		
 		int choice = JOptionPane.showOptionDialog(null, "************Movie Monthly Payment**********", "Movies", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, moviesMainMenu, 0);
@@ -55,51 +55,56 @@ public class LifestyleServices {
 			return false;
 		case 0:
 			int disneyPlusChoice = JOptionPane.showOptionDialog(null, "Disney+", "Movies", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, disneyPlusChoices, 0);
-			service = "Disney+";
+			service = "Disney+ subscription";
 			switch (disneyPlusChoice) {
 			case -1:
 				return false;
 			case 0:
+				service += " with ad-supported version";
 				amount = disneyPlusPrices[0];
 				break;
 			case 1:
+				service += " ad free version";
 				amount = disneyPlusPrices[1];
 				break;
 			case 2:
+			    service += " annual";
 				amount = disneyPlusPrices[2];
 				break;
 			}
 			break;
 		case 1:
 			int huluChoice = JOptionPane.showOptionDialog(null, "Hulu", "Movies", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, huluChoices, 0);
-			service = "Hulu";
+			service = "Hulu subscription";
 			switch (huluChoice) {
 			case -1:
 				return false;
 			case 0:
+				service += " + Live TV";
 				amount = huluPrices[0];
 				break;
 			case 1:
+				service += " + no Ad + Live TV";
 				amount = huluPrices[1];
-				break;
-			case 2:
-				amount = huluPrices[3];
 				break;
 			}
 			break;
 		case 2:
 			int netflixChoice = JOptionPane.showOptionDialog(null, "Netflix", "Movies", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, netflixChoices, 0);
-			service = "Netflix";
+			service = "Netflix subscription";
 			switch (netflixChoice) {
 			case -1:
 				return false;
 			case 0:
+				service += " for 480P streaming";
 				amount = netflixPrices[0];
 				break;
 			case 1:
+				service += " for 1080P streaming";
 				amount = netflixPrices[1];
 				break;
 			case 2:
+				service += " for 4K streaming";
 				amount = netflixPrices[2];
 				break;
 			}
