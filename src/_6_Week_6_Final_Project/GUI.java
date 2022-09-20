@@ -86,7 +86,7 @@ public class GUI {
 			amountLabel.setText("- P" + String.format("%,.2f", amount));
 			amountLabel.setForeground(Color.red);
 		} else {
-			amountLabel.setText("- P" + String.format("%,.2f", amount));
+			amountLabel.setText("+ P" + String.format("%,.2f", amount));
 			amountLabel.setForeground(new Color(0, 215, 0));
 		}
 		JLabel descriptionLabel = new JLabel(description);
