@@ -53,7 +53,6 @@ public class Account {
 				emailAddress = refreshResults.getString("emailAddress");
 				balance = refreshResults.getDouble("balance");
 				initializeTransactionList();
-				loginSuccess = true;
 				return;
 			}
 		} catch (CommunicationsException e) {
@@ -160,6 +159,11 @@ public class Account {
 			registerStatment.setString(4, lastName);
 			registerStatment.setString(5, emailAddress);
 			registerStatment.executeUpdate();
+			PreparedStatement getNewlyCreatedAccountIdStatement = localConn.prepareStatement("select id from accounts order by id desc limit 1;");
+			ResultSet idResult = getNewlyCreatedAccountIdStatement.executeQuery();
+			while (idResult.next()) {
+				addToHistory(idResult.getInt("id"), "Digicash created account", 0);
+			}
 		} catch (CommunicationsException e) {
 			initializeConnection();
 			e.printStackTrace();
