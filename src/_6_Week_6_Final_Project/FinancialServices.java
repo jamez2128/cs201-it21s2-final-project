@@ -48,6 +48,11 @@ public class FinancialServices {
 			} else {
 				amount = Double.parseDouble(amountField.getText());
 			}
+			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
 			break;
 		}
 
@@ -126,6 +131,11 @@ public class FinancialServices {
 				amount = Double.parseDouble(field2.getText());
 			}
 			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			
 			if (field3.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Name field is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
 				return false;
@@ -192,6 +202,11 @@ public class FinancialServices {
 				return false;
 			} else {
 				amount = Double.parseDouble(field2.getText());
+			}
+			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
 			}
 			
 			if (field3.getText().isEmpty()) {
@@ -262,6 +277,11 @@ public class FinancialServices {
 				return false;
 			} else {
 				amount = Double.parseDouble(field2.getText());
+			}
+			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Invalid amount please try again", null, JOptionPane.WARNING_MESSAGE);
+				return false;
 			}
 			
 			break;

@@ -308,7 +308,7 @@ public class LifestyleServices {
 			}
 			
 			if (accountNumber.matches("\\D+")) {
-				JOptionPane.showMessageDialog(null, "Account name field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Account number field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			
@@ -319,8 +319,15 @@ public class LifestyleServices {
 				
 			if (amountField.getText().matches("\\D+")) {
 				JOptionPane.showMessageDialog(null, "Amount field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
+
 			} else {
 				amount = Double.parseDouble(amountField.getText());
+			}
+			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Amount field is invalid", "Pay Bills", JOptionPane.ERROR_MESSAGE);
+				return false;
 			}
 			break;
 		}
@@ -389,6 +396,11 @@ public class LifestyleServices {
 				return false;
 			} else {
 				amount =  Double.parseDouble(amountField.getText());
+			}
+			
+			if (amount <= 0) {
+				JOptionPane.showMessageDialog(null, "Amount field is invalid", "Send Money/Gift", JOptionPane.ERROR_MESSAGE);
+				return false;
 			}
 			
 			message = messageField.getText();
