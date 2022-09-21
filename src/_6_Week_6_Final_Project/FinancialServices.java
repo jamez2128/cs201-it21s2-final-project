@@ -25,18 +25,15 @@ public class FinancialServices {
 		case 2:
 			return false;
 		case 0:
-			if (bankName.isEmpty()) {
+			if (bankNameField.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Bank name is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
 				return false;
+			} else {
+				bankName = bankNameField.getText();
 			}
 			
-			if (accountNumber.isEmpty()) {
+			if (accountNumberField.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Account number is empty\nPlease try again", null, JOptionPane.WARNING_MESSAGE);
-				return false;
-			}
-
-			if (accountNumber.matches("\\D+")) {
-				JOptionPane.showMessageDialog(null, "Invalid acccount number please try again", null, JOptionPane.WARNING_MESSAGE);
 				return false;
 			} else {
 				accountNumber = accountNumberField.getText();
