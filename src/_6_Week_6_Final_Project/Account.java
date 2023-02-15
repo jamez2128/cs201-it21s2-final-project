@@ -143,7 +143,7 @@ public class Account {
 	public static void initializeConnection() {
 		if (localConn == null) {
 			try {
-				localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "root", "password");
+				localConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digicash", "root", "");
 				isConnected = true;
 			} catch (SQLException e) {
 				localConn = null;
